@@ -5,7 +5,7 @@ layout: page
 
 个人博客junningwu.github.io开通于2019/11/18，以前的东西太乱了，各个网站和论坛都有一些。
 
-=======================================================================================
+====================================================================
 
 中科院自动化所高级工程师
 北京中科昊芯科技有限公司 联合创始人&副总经理
@@ -17,10 +17,14 @@ layout: page
 发表论文多篇，申请国家发明专利10余项，已授权6项
 
 
-###学术著作：
+学术著作：
+-------------------------------------------
+
 《人工智能-用AI技术打造智能化未来》，谭铁牛主编，中国科学技术出版社，2019.8。参与编写“智能处理器设计”章节。
 
-###学术论文：
+学术论文：
+-------------------------------------------
+
 Renwei Li, Junning Wu, Meng Liu, Zuding Chen, Shengang Zhou, Shanggong Feng, "HcveAcc: A High-Performance and Energy-Efficient Accelerator for Tracking Task in VSLAM System", Design Automation and Test in Europe Conference(DATE),2020.
 
 Renwei Li, Junning Wu, Meng Liu, Shengang Zhou and Zuding Chen, "A High-Performance and Energy-Efficient Accelerator with the RISC-V Core for Optimization in Visual SLAM System",The 1st China RISC-V Forum, November 12-13, ShenZhen.
@@ -36,7 +40,9 @@ J. Wu, R. Li, S. Zhou, X. Zhuang, W. Xu, “An Agile SoC Design for Wireless Com
 Xin Huanga, QingBin Liu, JunNing Wu, XueLiang Du and DongLin Wang,"TxCP: A Coprocessor for LTE-A",IEEE International Conference on Electronic Information Technology and Computer Engineering(EITCE 2017), Xiamen, China, Oct.18-20 2017.(EI)
 
 
-###发明专利：
+发明专利：
+-------------------------------------------
+
 吴军宁,王晓琴,郭晓龙,赵旭莹,林啸,张森,郭璟,王伟康．” 一种LTE系统中伪随机序列并行生成方法”．中国发明专利申请号：201410136806.3．
 
 吴军宁,王晓琴,张森,赵旭莹,林啸,郭晓龙,郭璟,王伟康．”一种用于LTE系统Turbo码内交织的并行实现方法及装置”．中国发明专利申请号：201410136945.6．
@@ -56,10 +62,14 @@ Xin Huanga, QingBin Liu, JunNing Wu, XueLiang Du and DongLin Wang,"TxCP: A Copro
 王晓琴,张森,赵旭莹,吴军宁,郭晓龙,林啸,郭璟,王伟康. “一种LTE系统速率匹配的并行实现方法和装置”. 中国发明专利申请号：201410123580.3.
 
 
-###学术任职：
+学术任职：
+-------------------------------------------
+
 2019年度芯师爷“硬核中国芯”专家评委
 
-###评论文章：
+评论文章：
+-------------------------------------------
+
 2019.9《5G芯片的“春秋五霸”》，财经专栏文章。http://finance.sina.com.cn/stock/relnews/hk/2019-09-26/doc-iicezueu8605567.shtml
 
 2019.4《一个公式，两门学科，多种算法，无数款芯片》，获今日头条青云计划。https://mp.weixin.qq.com/s/EouG3CGUVkmztJKEPlTSbw
