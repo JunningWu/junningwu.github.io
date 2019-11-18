@@ -3,57 +3,69 @@ title: about
 layout: page
 ---
 
-此博客开通于2018/1/24，写些东西，记录生活，如此而已。
+个人博客junningwu.github.io开通于2019/11/18，以前的东西太乱了，各个网站和论坛都有一些。
 
-我很喜欢Bob Dylan的一首歌，叫《forever young》。
+=======================================================================================
 
-	May God bless and keep you always
-	May your wishes all come true
-	May you always do for others
-	And let others do for you
-	May you build a ladder to the stars
-	And climb on every rung
-	May you stay forever young
-	Forever young, forever young
-	May you stay forever young.
-	May you grow up to be righteous
-	May you grow up to be true
-	May you always know the truth
-	And see the lights surrounding you
-	May you always be courageous
-	Stand upright and be strong
-	May you stay forever young
-	Forever young, forever young
-	May you stay forever young.
-	May your hands always be busy
-	May your feet always be swift
-	May you have a strong foundation
-	When the winds of changes shift
-	May your heart always be joyful
-	And may your song always be sung
-	May you stay forever young
-	Forever young, forever young
-	May you stay forever young.
+中科院自动化所高级工程师
+北京中科昊芯科技有限公司 联合创始人&副总经理
+原思朗科技前端设计部副总经理
 
-我很喜欢《Rick And Morty》。
 
-我很喜欢茨威格和毛姆的书。
+作为核心骨干先后参与“核高基”、国家科技支撑计划、中科院先导A类/C类专项等多项国家级课题
+研究领域包括无线通信、集成电路、机器人等，涉及无线通信基带信号处理、超算处理器架构设计、人工智能芯片(AI Chip)、深度学习(Deep Learning)加速器，具有65nm、55nm、40nm成功流片经验，在研项目包括28nm、16nm等
+发表论文多篇，申请国家发明专利10余项，已授权6项
 
-我很喜欢玩游戏并且经常浸入其中。
 
-我认为人生毫无意义，以此对抗生活。
+学术著作：
+《人工智能-用AI技术打造智能化未来》，谭铁牛主编，中国科学技术出版社，2019.8。参与编写“智能处理器设计”章节。
 
-我爱打篮球，Tim Duncun是我的偶像。
+学术论文：
+Renwei Li, Junning Wu, Meng Liu, Zuding Chen, Shengang Zhou, Shanggong Feng, "HcveAcc: A High-Performance and Energy-Efficient Accelerator for Tracking Task in VSLAM System", Design Automation and Test in Europe Conference(DATE),2020.
 
-我现在的理想是做出一个游戏AI(NPC)，它会与某些人产生感情并伴其一生。
+Renwei Li, Junning Wu, Meng Liu, Shengang Zhou and Zuding Chen, "A High-Performance and Energy-Efficient Accelerator with the RISC-V Core for Optimization in Visual SLAM System",The 1st China RISC-V Forum, November 12-13, ShenZhen.
 
-我认为人类的仪式感毫无用处但我经常会自己制造仪式感。
+J. Wu, R. Li, S. Feng, “eRSA：An energy-efficient Reconfigurable Sorting Accelerator”, IEEE International Conference on Electronic Information Technology and Computer Engineering(EITCE 2019), Xiamen, China, Oct.18-20 2019.(EI)
 
-我认为The One也许是不存在的，我们永远也找不到自己的The One。
+S. Feng , J. Wu, S. Zhou, R. Li, “The Implementation of LeNet-5 with NVDLA on RISC-V SoC”, IEEE International Conference on Software Engineering and Service Science(ICSESS 2019), Beijing, China, Oct.18-20 2019.(EI)
 
-我永远喜欢守望先锋，这个世界需要更多英雄。
+M. Lu, R. Li, J. Wu, et al.“Progress in non-tree clock network and wire width variation for mesh design”, Journal of Semiconductor Technology and Science, .(SCI)
 
-短发女生是宇宙最可爱的生物。
+J. Wu, R. Li, S. Zhou, X. Zhuang, W. Xu, “An Agile SoC Design for Wireless Communication based on RISC-V”,in Proceedings of the 1st Nation Conference on Advanced Computing and Defense, Hangzhou, China, Nov.5-6 2018.(EI)
+
+Xin Huanga, QingBin Liu, JunNing Wu, XueLiang Du and DongLin Wang,"TxCP: A Coprocessor for LTE-A",IEEE International Conference on Electronic Information Technology and Computer Engineering(EITCE 2017), Xiamen, China, Oct.18-20 2017.(EI)
+
+
+发明专利：
+吴军宁,王晓琴,郭晓龙,赵旭莹,林啸,张森,郭璟,王伟康．” 一种LTE系统中伪随机序列并行生成方法”．中国发明专利申请号：201410136806.3．
+
+吴军宁,王晓琴,张森,赵旭莹,林啸,郭晓龙,郭璟,王伟康．”一种用于LTE系统Turbo码内交织的并行实现方法及装置”．中国发明专利申请号：201410136945.6．
+
+吴军宁,赵旭莹,吴义如,董佳佳,王晓琴. “一种Turbo译码器的位宽非对称仿存接口”．中国发明专利申请号：201510136860.2.
+
+王东琳,尹磊祖,杨勇勇,谢少林,张星,吴军宁. “一种自索引寄存器文件堆装置”. 中国发明专利申请号：201310138977.5.
+
+赵旭莹,王晓琴,吴军宁,田燕. “一种基四算法下的加比选计算方法和装置”. 中国发明专利申请号：201510571691.5.
+
+赵旭莹,王晓琴,吴军宁,田燕. “一种Turbo迭代译码方法和译码装置”. 中国发明专利申请号：201410796237.5
+
+郭晓龙,王晓琴,吴军宁,郭璟,王伟康,林啸,赵旭莹,张森. “一种LTE系统资源映射的向量化实现方法和装置”. 中国发明专利申请号：201410141740.7
+
+郭晓龙,王晓琴,王伟康,吴军宁,林啸,郭璟,张森,赵旭莹. “一种面向可编程代数处理器的矩阵乘法计算装置及方法”. 中国发明专利申请号：201410123578.6.
+
+王晓琴,张森,赵旭莹,吴军宁,郭晓龙,林啸,郭璟,王伟康. “一种LTE系统速率匹配的并行实现方法和装置”. 中国发明专利申请号：201410123580.3.
+
+
+学术任职：
+2019年度芯师爷“硬核中国芯”专家评委
+
+评论文章：
+2019.9《5G芯片的“春秋五霸”》，财经专栏文章。http://finance.sina.com.cn/stock/relnews/hk/2019-09-26/doc-iicezueu8605567.shtml
+
+2019.4《一个公式，两门学科，多种算法，无数款芯片》，获今日头条青云计划。https://mp.weixin.qq.com/s/EouG3CGUVkmztJKEPlTSbw
+
+2018.4《管窥AI芯片国内外现状》，曾被人民日报、新智元、参考消息、国是直通车等公众号引用转发。https://mp.weixin.qq.com/s/LDd07VwfRlccK1acm3rVZw
+
 
 
 
