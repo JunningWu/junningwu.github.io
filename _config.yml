@@ -4,9 +4,9 @@
 # ---------------------------------------------------------------
 
 # Site
-title: Couragelogos
+title: Junning Wu's Homepage
 subtitle:
-description: wublub dubda
+description: Things about The Junning Wu
 author: Logos
 # Support language: de, en, fr-FR, id, ja, ko, pt-BR, pt, ru, zh-Hans, zh-hk, zh-tw
 language: zh-Hans
@@ -86,7 +86,7 @@ keywords: "Jekyll, NexT"
 rss: false
 
 # Specify the date when the site was setup
-since: 2018
+since: 2019
 
 # icon between year and author @Footer
 authoricon: heart
@@ -216,8 +216,9 @@ font:
 # Value is the target link (E.g. GitHub: https://github.com/iissnan)
 social:
   #LinkLabel: Link
-    GitHub: https://github.com/Logos23333
-    School: http://www.scut.edu.cn/new
+    GitHub: https://github.com/JunningWu
+    School: http://www.ia.cas.cn
+    Company: http://www.haawking.com
 
 
 # Social Links Icons
