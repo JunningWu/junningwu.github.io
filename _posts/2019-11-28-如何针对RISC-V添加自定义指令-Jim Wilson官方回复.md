@@ -1,10 +1,10 @@
 ---
 layout: post
-title: 如何采用AI技术与诈骗团伙斗智斗勇？
-date: 2019-11-19
-categories: 评论文章
-tags: [随笔,评论文章]
-description: 无监督自主学习的AI技术与诈骗团伙斗智斗勇
+title: 如何针对RISC-V添加自定义指令？
+date: 2019-11-28
+categories: 技术文章
+tags: [转载,技术文章]
+description: 如何针对RISC-V添加自定义指令？GNU的开发者Jim Wilson在邮件列表中的回复，比较具有启发意义。
 ---
 It is easier to add instructions to binutils than gcc.  For binutils, 
 we have the .insn support that Kito Cheng added that lets you specify 
