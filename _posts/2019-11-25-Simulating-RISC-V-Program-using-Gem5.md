@@ -379,13 +379,13 @@ This particular example works for adding a library and it’s headers when they 
 #include <lib_header.h>
 
 Or if you’ve included a C library:
-
+```
 extern "C" {
 
 #include <lib_header.h>
 
 }
-
+```
 This can be added to any file you want to use the library in and scons will automatically link the header file during the build based on the headers it needs to find in the source files and the SConscript files provided. If you want to use the library in the instruction execution definitions of the ISA files, the easiest place to put the include statement so that all instructions have access to the libraries is in the isa.hh file of the ISA you are working on. This is much cleaner than adding the include directly to the decoder.isa file itself for each instruction that needs it and keeps all the libraries being used by the execution definitions in the same place for easy management.
 
 
@@ -404,7 +404,7 @@ main.Append(LIBS=['softfloat'])
 main.Append(CPPPATH=[Dir('.')])
 
 This file must be in the same directory as the libsoftfloat.a library file and the headers for this file to work. Then, subsequent gem5 builds will include the library as appropriate. The #include statement for the SoftFloat header goes in the isa.hh which makes is available to the instruction execution definitions in decoder.isa. Because SoftFloat is a C library, it must be included using an extern "C" statement like so:
-
+```
 extern "C" {
 
 #include <softfloat.h>
@@ -444,7 +444,7 @@ std::memcpy(&Fd, &fd_sf, sizeof fd_sf);
 }
 
 }}, FloatMultOp);
-
+```
 This will use type-punning to cast the double operands to SoftFloat types, use the SoftFloat library call to perform the operation, and then type-pun the double result back to a value usable in the simulator. Before this modification, the entire else block of the code snippet shown above was simply one line:
 
 Fd = Fs1*Fs2;
