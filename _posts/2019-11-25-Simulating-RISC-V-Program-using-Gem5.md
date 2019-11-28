@@ -6,7 +6,6 @@ categories: 转载
 tags: [转载,技术文章]
 description: This guide is intended to give an extended explanation of how to use the gem5 architectural simulator in syscall emulation mode (i.e. without an operating system). It covers the basics of getting a real system ready and building gem5 from scratch, running gem5 with custom simulation settings to get the simulated system just right and run your own programs, as well as how to modify basic ISA components allowing modified or custom instructions.
 ---
-
 ## Intro
 This guide is intended to give an extended explanation of how to use the gem5 architectural simulator in syscall emulation mode (i.e. without an operating system). It covers the basics of getting a real system ready and building gem5 from scratch, running gem5 with custom simulation settings to get the simulated system just right and run your own programs, as well as how to modify basic ISA components allowing modified or custom instructions.
 
