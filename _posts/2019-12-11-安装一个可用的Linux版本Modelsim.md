@@ -74,6 +74,7 @@ cp ../cmake_configure.riscv.gcc.sh ./
 这样会报错，这是因为pulpino本身的问题，并不是工具链的问题，博主之前尝试了riscv的toolchain和pulp的，都存在问题，后来在pulpino的issue里面发现了解决方法[not able to compile a simple test program](https://github.com/pulp-platform/pulpino/issues/281#issuecomment-477085049)。
 
 - fix_m32.sh
+
 ```
 #!/bin/bash
 
@@ -90,6 +91,7 @@ for file in $(find); do
     fi
 done
 ```
+
 - fix_linker.sh
 
 ```
@@ -97,12 +99,16 @@ done
 
 riscv32-unknown-elf-ld --verbose | head -n -1 | tail -n +7 | sed '168 a \ \ _fbss = .;' | sed '169 a \ \ . = .;' > /home/path/to/pulpino/sw/build/CMakeFiles/CMakeTmp/riscv.ld
 ```
+
 按照issue的经验以及博主的经验，需要多尝试几次，原贴中写的（~5），博主执行到第四次的时候，就过了。
 修改march如下：
+
 ```
 GCC_MARCH="RV32IMXpulpv2"
 ```
+
 执行效果如下：
+
 ```
 junningwu@junningwu-vm:~/workspace/pulp/pulpino/sw/build$ ./cmake_configure.riscv.gcc.sh 
 -- GCC_MARCH= RV32IMXpulpv2
@@ -115,7 +121,9 @@ junningwu@junningwu-vm:~/workspace/pulp/pulpino/sw/build$ ./cmake_configure.risc
 -- Generating done
 -- Build files have been written to: /home/junningwu/workspace/pulp/pulpino/sw/build
 ```
+
 运行make vcompile，直到运行结果如下，说明编译没有问题。
+
 ```
 ... ... 
 ... ...
@@ -129,8 +137,10 @@ Compiling component:  work.tb
 
 Built target vcompile
 ```
+
 ### 运行helloworld
 当执行make hello_world.vsimc，会报错，unrecognised emulation mode: elflriscv:
+
 ```
 [ 50%] Linking CXX executable helloworld.elf
 /home/junningwu/workspace/pulp/pulp-tc-newlib/lib/gcc/riscv32-unknown-elf/7.1.1/../../../../riscv32-unknown-elf/bin/ld: unrecognised emulation mode: elflriscv
@@ -145,6 +155,7 @@ make[1]: *** [apps/helloworld/CMakeFiles/helloworld.vsimc.dir/rule] Error 2
 Makefile:376: recipe for target 'helloworld.vsimc' failed
 make: *** [helloworld.vsimc] Error 2
 ```
+
 在pulpino的issue中，看到有人建议用[ri5cy_gnu_toolchain](https://github.com/pulp-platform/ri5cy_gnu_toolchain) ，这是一个老版本的gnu-toolchain，应该与pulpino的cmake脚本一致。而目前用到的pulp-riscv-gnu-toolchain比较新，有一些性能并不适用于pulpino。
 
 ```
