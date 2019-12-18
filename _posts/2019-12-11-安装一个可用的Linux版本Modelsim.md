@@ -72,11 +72,12 @@ cp ../cmake_configure.riscv.gcc.sh ./
 ./cmake_configure.riscv.gcc.sh
 ```
 这样会报错，这是因为pulpino本身的问题，并不是工具链的问题，博主之前尝试了riscv的toolchain和pulp的，都存在问题，后来在pulpino的issue里面发现了解决方法[not able to compile a simple test program](https://github.com/pulp-platform/pulpino/issues/281#issuecomment-477085049)。
+
 - fix_m32.sh
 ```
 #!/bin/bash
 
-# Find and replace all occurrances of '-m32' and fix rest of line.
+#Find and replace all occurrances of '-m32' and fix rest of line.
 
 for file in $(find); do
     if [[ -f $file ]]; then
@@ -90,6 +91,7 @@ for file in $(find); do
 done
 ```
 - fix_linker.sh
+
 ```
 #!/bin/bash
 
@@ -144,6 +146,7 @@ Makefile:376: recipe for target 'helloworld.vsimc' failed
 make: *** [helloworld.vsimc] Error 2
 ```
 在pulpino的issue中，看到有人建议用[ri5cy_gnu_toolchain](https://github.com/pulp-platform/ri5cy_gnu_toolchain) ，这是一个老版本的gnu-toolchain，应该与pulpino的cmake脚本一致。而目前用到的pulp-riscv-gnu-toolchain比较新，有一些性能并不适用于pulpino。
+
 ```
 in/install/riscv32-unknown-elf/lib; \
   done
@@ -154,12 +157,15 @@ make[3]: Leaving directory '/home/junningwu/workspace/pulp/ri5cy_gnu_toolchain/b
 make[2]: Leaving directory '/home/junningwu/workspace/pulp/ri5cy_gnu_toolchain/build/build-gcc-newlib'
 make[1]: Leaving directory '/home/junningwu/workspace/pulp/ri5cy_gnu_toolchain/build/build-gcc-newlib'
 ```
+
 ```
 junningwu@junningwu-vm:~/workspace/pulp/ri5cy_gnu_toolchain$ cd install/
 bin/                 lib/                 riscv32-unknown-elf/
 include/             libexec/             share/
 ```
+
 然后，再回到sw/build目录下，重新compile和执行，如果modelsim没什么问题，其实应该已经可以运行仿真了。但是，Altera Modelsim不支持64位的版本，所以依然还存在错误。
+
 ```
 [ 75%] Generating slm_files/l2_ram.slm
 [100%] Built target helloworld.slm.cmd
@@ -177,7 +183,9 @@ make[1]: *** [apps/helloworld/CMakeFiles/helloworld.vsimc.dir/rule] Error 2
 Makefile:350: recipe for target 'helloworld.vsimc' failed
 make: *** [helloworld.vsimc] Error 2
 ```
+
 通过修改文件sw/apps/CMakeSim.txt中关于vsim -64的选项，可以正常编译pulpino，但是还是会报错，Error loading design：
+
 ```
 Scanning dependencies of target helloworld.vsimc
 [100%] Running helloworld in ModelSim
@@ -191,7 +199,9 @@ make[1]: *** [apps/helloworld/CMakeFiles/helloworld.vsimc.dir/rule] Error 2
 Makefile:376: recipe for target 'helloworld.vsimc' failed
 make: *** [helloworld.vsimc] Error 2
 ```
+
 然后，就在[issue110](https://github.com/pulp-platform/pulpino/issues/110) 中找到了解决方法，完美地解决了这个问题。至此，pulpino可以正常仿真了。
+
 ```
 junningwu@junningwu-vm:~/workspace/pulp/pulpino/sw/build$ make helloworld.vsimc
 [  0%] Built target bench
