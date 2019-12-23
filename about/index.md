@@ -73,7 +73,11 @@ Xin Huanga, QingBin Liu, **JunNing Wu**, XueLiang Du and DongLin Wang,"TxCP: A C
 评论文章：
 -------------------------------------------
 
+
 2019.9《5G芯片的“春秋五霸”》，财经专栏文章。http://finance.sina.com.cn/stock/relnews/hk/2019-09-26/doc-iicezueu8605567.shtml
+
+2019.8 《自主可控中国芯助力智能制造新时代》，中国聊城智能制造产业发展高峰论坛。
+http://www.cnr.cn/rdzx/cxxhl/zxxx/20190830/t20190830_524757528.shtml
 
 2019.4《一个公式，两门学科，多种算法，无数款芯片》，获今日头条青云计划。https://mp.weixin.qq.com/s/EouG3CGUVkmztJKEPlTSbw
 
