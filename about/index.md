@@ -73,15 +73,16 @@ Xin Huanga, QingBin Liu, **JunNing Wu**, XueLiang Du and DongLin Wang,"TxCP: A C
 评论文章：
 -------------------------------------------
 
+2019.12 《你好，人工智能》央视科教频道，科幻地带栏目。[CCTV10](http://tv.cctv.com/2019/12/22/VIDEMX5wicZtsHMCokVthBYe191222.shtml)
 
-2019.9《5G芯片的“春秋五霸”》，财经专栏文章。http://finance.sina.com.cn/stock/relnews/hk/2019-09-26/doc-iicezueu8605567.shtml
+2019.9《5G芯片的“春秋五霸”》，财经专栏文章。[新浪科技](http://finance.sina.com.cn/stock/relnews/hk/2019-09-26/doc-iicezueu8605567.shtml)
 
-2019.8 《自主可控中国芯助力智能制造新时代》，中国聊城智能制造产业发展高峰论坛。
-http://www.cnr.cn/rdzx/cxxhl/zxxx/20190830/t20190830_524757528.shtml
+2019.8 《自主可控中国芯助力智能制造新时代》，中国聊城智能制造产业发展高峰论坛。[央广网](http://www.cnr.cn/rdzx/cxxhl/zxxx/20190830/t20190830_524757528.shtml) [slides](https://github.com/JunningWu/junningwu.github.io/blob/master/_posts/%E8%87%AA%E4%B8%BB%E5%8F%AF%E6%8E%A7%E4%B8%AD%E5%9B%BD%E8%8A%AF%E5%8A%A9%E5%8A%9B%E6%99%BA%E8%83%BD%E5%88%B6%E9%80%A0%E6%96%B0%E6%97%B6%E4%BB%A3-%E5%90%B4%E5%86%9B%E5%AE%81.pdf)
 
-2019.4《一个公式，两门学科，多种算法，无数款芯片》，获今日头条青云计划。https://mp.weixin.qq.com/s/EouG3CGUVkmztJKEPlTSbw
 
-2018.4《管窥AI芯片国内外现状》，曾被人民日报、新智元、参考消息、国是直通车等公众号引用转发。https://mp.weixin.qq.com/s/LDd07VwfRlccK1acm3rVZw
+2019.4《一个公式，两门学科，多种算法，无数款芯片》，获今日头条青云计划。[微信公众号](https://mp.weixin.qq.com/s/EouG3CGUVkmztJKEPlTSbw)
+
+2018.4《管窥AI芯片国内外现状》，曾被人民日报、新智元、参考消息、国是直通车等公众号引用转发。[微信公众号](https://mp.weixin.qq.com/s/LDd07VwfRlccK1acm3rVZw)
 
 
 
