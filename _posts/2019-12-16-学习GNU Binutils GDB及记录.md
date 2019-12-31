@@ -21,6 +21,19 @@ description: RISC-V GNU Binutils GDB新增自定义指令相关源码分析。
 ### ALU
 ### Multiply-Accumulate
 ### Vectorial
+## GNU Binutils Commands with Examples
+### as - GNU Assembler Command
+### ld – GNU Linker Command
+### ar – GNU Archive Command
+### nm – List Object File Symbols
+### objcopy – Copy and Translate Object Files
+### objdump – Display Object File Information
+### size – List Section Size and Toal Size
+### strings – Display Printable Characters from a File
+### strip – Discard Symbols from Object File
+### c++filt – Demangle Command
+### addr2line – Convert Address to Filename and Numbers
+### readelf – Display ELF File Info
 ```
 
 基于RISC-V基本指令集增加自定义指令的过程，可以查看我的前一篇博文《使用Gem5自定义RISC-V指令集（持续更新）》。这篇博文主要是记录一些相关源码的分析、理解和注释。
@@ -564,7 +577,250 @@ is used for this purpose.
 while operand 2 is treated as a scalar and comes from an immediate. The immediate is either sign-
 or zero-extended, depending on the operation. If not specified, the immediate is sign-extended.
 
+## GNU Binutils Commands with Examples
 
+Gnu Binutils是GNU Toolchain中重要的工具，包括下列子程序，完成汇编、链接等功能。
+- as – GNU Assembler Command
+- ld – GNU Linker Command
+- ar – GNU Archive Command
+- nm – List Object File Symbols
+- objcopy – Copy and Translate Object Files
+- objdump – Display Object File Information
+- size – List Section Size and Toal Size
+- strings – Display Printable Characters from a File
+- strip – Discard Symbols from Object File
+- c++filt – Demangle Command
+- addr2line – Convert Address to Filename and Numbers
+- readelf – Display ELF File Info
+
+用来做测试的程序如下，比较简单，就是模拟简单的函数调用，返回1。
+```
+// func1.c file:
+int func1() {
+	return func2();
+}
+
+// func2.c file:
+int func2() {
+	return 1;
+}
+
+// main.c file:
+int main() {
+	return func1();
+}
+```
+
+在进行下一步之前，我们先调用gcc -S将c程序代码转换成s文件。
+
+- func2.s	
+
+```
+.file	"func2.c"
+	.option nopic
+	.text
+	.align	1
+	.globl	func2
+	.type	func2, @function
+func2:
+	addi	sp,sp,-16
+	sd	s0,8(sp)
+	addi	s0,sp,16
+	li	a5,1
+	mv	a0,a5
+	ld	s0,8(sp)
+	addi	sp,sp,16
+	jr	ra
+	.size	func2, .-func2
+	.ident	"GCC: (GNU) 7.2.0"
+```
+
+- func1.s
+
+```
+	.file	"func1.c"
+	.option nopic
+	.text
+	.align	1
+	.globl	func2
+	.type	func2, @function
+func2:
+	addi	sp,sp,-16
+	sd	s0,8(sp)
+	addi	s0,sp,16
+	li	a5,1
+	mv	a0,a5
+	ld	s0,8(sp)
+	addi	sp,sp,16
+	jr	ra
+	.size	func2, .-func2
+	.align	1
+	.globl	func1
+	.type	func1, @function
+func1:
+	addi	sp,sp,-16
+	sd	ra,8(sp)
+	sd	s0,0(sp)
+	addi	s0,sp,16
+	call	func2
+	mv	a5,a0
+	mv	a0,a5
+	ld	ra,8(sp)
+	ld	s0,0(sp)
+	addi	sp,sp,16
+	jr	ra
+	.size	func1, .-func1
+	.ident	"GCC: (GNU) 7.2.0"
+```
+
+- main.s
+
+```
+	.file	"main.c"
+	.option nopic
+	.text
+	.align	1
+	.globl	func2
+	.type	func2, @function
+func2:
+	addi	sp,sp,-16
+	sd	s0,8(sp)
+	addi	s0,sp,16
+	li	a5,1
+	mv	a0,a5
+	ld	s0,8(sp)
+	addi	sp,sp,16
+	jr	ra
+	.size	func2, .-func2
+	.align	1
+	.globl	func1
+	.type	func1, @function
+func1:
+	addi	sp,sp,-16
+	sd	ra,8(sp)
+	sd	s0,0(sp)
+	addi	s0,sp,16
+	call	func2
+	mv	a5,a0
+	mv	a0,a5
+	ld	ra,8(sp)
+	ld	s0,0(sp)
+	addi	sp,sp,16
+	jr	ra
+	.size	func1, .-func1
+	.align	1
+	.globl	main
+	.type	main, @function
+main:
+	addi	sp,sp,-16
+	sd	ra,8(sp)
+	sd	s0,0(sp)
+	addi	s0,sp,16
+	call	func1
+	mv	a5,a0
+	mv	a0,a5
+	ld	ra,8(sp)
+	ld	s0,0(sp)
+	addi	sp,sp,16
+	jr	ra
+	.size	main, .-main
+	.ident	"GCC: (GNU) 7.2.0"
+```
+
+
+
+### as - GNU Assembler Command
+
+as工具的输入是汇编代码，输出是目标文件。输出目标文件作为ld的输入，最后生成可执行文件。
+目标文件是ELF格式。
+
+```
+llvm@llvm-vm:~/workspace/gem5/tests/test-progs/test-gnubinutils$ ../../../../freedom/rocket-chip/riscv-tools/riscv-tc-new/bin/riscv64-unknown-linux-gnu-as main.s -o main.o
+llvm@llvm-vm:~/workspace/gem5/tests/test-progs/test-gnubinutils$ file main.o 
+main.o: ELF 64-bit LSB relocatable, UCB RISC-V, version 1 (SYSV), not stripped
+```
+
+### ld – GNU Linker Command
+
+
+### ar – GNU Archive Command
+
+
+### nm – List Object File Symbols
+
+
+### objcopy – Copy and Translate Object Files
+
+
+### objdump – Display Object File Information
+
+
+### size – List Section Size and Toal Size
+
+size可以显示出目标文件各个段section的大小。
+
+```
+llvm@llvm-vm:~/workspace/gem5/tests/test-progs/test-gnubinutils$ ../../../../freedom/rocket-chip/riscv-tools/riscv-tc-new/bin/riscv64-unknown-linux-gnu-size main.o
+   text	   data	    bss	    dec	    hex	filename
+    128	      0	      0	    128	     80	main.o
+```
+
+### strings – Display Printable Characters from a File
+
+strings列出目标文件中可以打印的符号，默认只显示.data段，-a选项可以显示所有段中的符好。
+
+```
+llvm@llvm-vm:~/workspace/gem5/tests/test-progs/test-gnubinutils$ ../../../../freedom/rocket-chip/riscv-tools/riscv-tc-new/bin/riscv64-unknown-linux-gnu-strings -a main.o
+GCC: (GNU) 7.2.0
+main.c
+func2
+func1
+main
+.symtab
+.strtab
+.shstrtab
+.rela.text
+.data
+.bss
+.comment
+```
+
+### strip – Discard Symbols from Object File
+
+strip可以去掉目标文件中的可打印符号，减小目标文件的大小，提高执行速度。
+
+```
+llvm@llvm-vm:~/workspace/gem5/tests/test-progs/test-gnubinutils$ ../../../../freedom/rocket-chip/riscv-tools/riscv-tc-new/bin/riscv64-unknown-linux-gnu-objdump -t main.o
+
+main.o:     file format elf64-littleriscv
+
+SYMBOL TABLE:
+0000000000000000 l    df *ABS*	0000000000000000 main.c
+0000000000000000 l    d  .text	0000000000000000 .text
+0000000000000000 l    d  .data	0000000000000000 .data
+0000000000000000 l    d  .bss	0000000000000000 .bss
+0000000000000000 l    d  .comment	0000000000000000 .comment
+0000000000000000 g     F .text	0000000000000020 func2
+0000000000000020 g     F .text	0000000000000030 func1
+0000000000000050 g     F .text	0000000000000030 main
+
+llvm@llvm-vm:~/workspace/gem5/tests/test-progs/test-gnubinutils$ ../../../../freedom/rocket-chip/riscv-tools/riscv-tc-new/bin/riscv64-unknown-linux-gnu-strip main.o
+llvm@llvm-vm:~/workspace/gem5/tests/test-progs/test-gnubinutils$ ../../../../freedom/rocket-chip/riscv-tools/riscv-tc-new/bin/riscv64-unknown-linux-gnu-objdump -t main.o
+
+main.o:     file format elf64-littleriscv
+
+SYMBOL TABLE:
+no symbols
+
+```
+
+### c++filt – Demangle Command
+
+
+### addr2line – Convert Address to Filename and Numbers
+
+
+### readelf – Display ELF File Info
 
 
 
