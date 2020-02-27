@@ -28,13 +28,13 @@ junning.wu@mail.haawking.com
 
 
 
-学术著作：
--------------------------------------------
+## 学术著作：
 
 《人工智能-用AI技术打造智能化未来》，谭铁牛主编，中国科学技术出版社，2019.8。参与编写“智能处理器设计”章节。
 
-学术论文：
--------------------------------------------
+
+## 学术论文：
+
 
 Renwei Li, **Junning Wu**, Meng Liu, Zuding Chen, Shengang Zhou, Shanggong Feng, "HcveAcc: A High-Performance and Energy-Efficient Accelerator for Tracking Task in VSLAM System", Design Automation and Test in Europe Conference(DATE),2020.
 
@@ -51,8 +51,8 @@ M. Lu, R. Li, **J. Wu**, et al.“Progress in non-tree clock network and wire wi
 Xin Huanga, QingBin Liu, **JunNing Wu**, XueLiang Du and DongLin Wang,"TxCP: A Coprocessor for LTE-A",IEEE International Conference on Electronic Information Technology and Computer Engineering(EITCE 2017), Xiamen, China, Oct.18-20 2017.(EI)
 
 
-发明专利：
--------------------------------------------
+## 发明专利：
+
 
 **吴军宁**,王晓琴,郭晓龙,赵旭莹,林啸,张森,郭璟,王伟康．” 一种LTE系统中伪随机序列并行生成方法”．中国发明专利申请号：201410136806.3．
 
@@ -73,10 +73,10 @@ Xin Huanga, QingBin Liu, **JunNing Wu**, XueLiang Du and DongLin Wang,"TxCP: A C
 王晓琴,张森,赵旭莹,**吴军宁**,郭晓龙,林啸,郭璟,王伟康. “一种LTE系统速率匹配的并行实现方法和装置”. 中国发明专利申请号：201410123580.3.
 
 
-参与或主持项目：
--------------------------------------------
+## 参与或主持项目：
 
-**2018/10 - 至今 深度学习加速器/智能机器人处理器 预研项目**
+
+## **2018/10 - 至今 深度学习加速器/智能机器人处理器 预研项目**
   - RISC-V 处理器与NVDLA结合，搭建SoC仿真平台，进行LeNet的仿真和验证。
   - 基于RISC-V指令集架构的计算机视觉（Computer Vision）加速部件设计
   - 电机控制算法分析，通过自定义指令集优化算法性能
@@ -85,20 +85,20 @@ Xin Huanga, QingBin Liu, **JunNing Wu**, XueLiang Du and DongLin Wang,"TxCP: A C
   
 ![haawking-riscv-demo-temp-sensor](https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/haawking-riscv-demo-temp-sensor.jpg)
 
-**2017/8 - 2018/9 深度学习加速器/超级计算处理器架构设计 中国科学院战略性科技专项**
+## **2017/8 - 2018/9 深度学习加速器/超级计算处理器架构设计 中国科学院战略性科技专项**
   - 深度学习加速器，英伟达NVDLA以及谷歌TPU，相关文献综述，撰写《人工智能-用AI技术打造智能化未来》相关章节。
   - 与曙光合作，负责E级机中数学函数库加速部件总线互联架构和存储设计
   
 ![ai-chip-comments](https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/ai-chip-comments.jpg)
 
-**2016/6 - 2017/7 XXX代数处理器 通信协处理器架构设计 中国科学院战略性科技专项/国家科技支撑计划**
+## **2016/6 - 2017/7 XXX代数处理器 通信协处理器架构设计 中国科学院战略性科技专项/国家科技支撑计划**
   - 完成通信专用协处理器架构设计，包括单元模块级设计及 存储、互联架构等；
   - 单元模块包括Turbo编码器、信道交织、速率匹配、加扰、调制及 输入输出单元；
   - 完成TSMC 28HPC 和Synopsys 16FFC工艺节点前端RTL设计及DC-T流程，工作频率达到600MHz，处于业界领先水平。
 
 ![cscp-architecture](https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/cscp-architecture.jpg)
 
-**2014/12 - 2016/5 XXX代数处理器 4G/5G信道编译码设计 中国科学院战略性科技专项/国家科技支撑计划**
+## **2014/12 - 2016/5 XXX代数处理器 4G/5G信道编译码设计 中国科学院战略性科技专项/国家科技支撑计划**
   - Turbo译码器后续版本的体系结构设计与实现、参数寻优以及低功耗设计和优化，包括ACS等特殊计算单元
 的定制设计；
   - 5G新空口核心算法Polar码的编译码算法设计和ASIC实现；
@@ -106,7 +106,7 @@ Xin Huanga, QingBin Liu, **JunNing Wu**, XueLiang Du and DongLin Wang,"TxCP: A C
 
 ![hpca2016-mapu-layout](https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/hpca2016-mapu-layout.jpg)
 
-**2014/03 - 2014/11 XXX代数处理器 高性能Turbo译码器设计 中国科学院战略性科技专项/国家科技支撑计划**
+## **2014/03 - 2014/11 XXX代数处理器 高性能Turbo译码器设计 中国科学院战略性科技专项/国家科技支撑计划**
   - Turbo译码器的功能性算法平台、时钟精确 模拟器平台的设计以及性能评估，包括浮点和定点；
   - Turbo译码器的RTL实现、验证、DC综合以及后仿，包括功能验证、覆盖率分析以及时序分析；
   - Turbo译码器在XXX代数处理器SoC系统集成设计，包括总线控制、中断访问等；
@@ -115,7 +115,7 @@ Xin Huanga, QingBin Liu, **JunNing Wu**, XueLiang Du and DongLin Wang,"TxCP: A C
 
 ![4g-algo-eva](https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/4g-algo-eva.jpg)
 
-**2012/03 — 2013/07 XXX高性能数字信号处理器设计 国家“核高基”项目**
+## **2012/03 — 2013/07 XXX高性能数字信号处理器设计 国家“核高基”项目**
   - 设计并验证 IIC 总线控制器、 DDR2 控制器、INTC中断控制器及PCI总线控制器等，完成前端RTL设计及网表验证；
   - 设计并调试相关模块的测试程序，包括但不限于IIC boot、中断控制、PCI主从设备测试程序。且在Altera CPLD以及Xilinx FPGA上进行 原型 验证。
   - 完成TSMC 65LP工艺节点流片，各项指标均满足设计需求，顺利通过项目验收。
@@ -123,13 +123,13 @@ Xin Huanga, QingBin Liu, **JunNing Wu**, XueLiang Du and DongLin Wang,"TxCP: A C
 ![c6455-a](https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/c6455-a.jpg)
 ![c6455-b](https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/c6455-b.jpg)
 
-学术任职：
--------------------------------------------
+## 学术任职：
+
 
 2019年度芯师爷“硬核中国芯”专家评委
 
-评论文章：
--------------------------------------------
+## 评论文章：
+
 
 2019.12 《你好，人工智能》央视科教频道，科幻地带栏目。
 
@@ -151,8 +151,8 @@ Xin Huanga, QingBin Liu, **JunNing Wu**, XueLiang Du and DongLin Wang,"TxCP: A C
 2018.4《管窥AI芯片国内外现状》，曾被人民日报、新智元、参考消息、国是直通车等公众号引用转发。[微信公众号](https://mp.weixin.qq.com/s/LDd07VwfRlccK1acm3rVZw)
 
 
-个人生活：
--------------------------------------------
+## 个人生活：
+
 
 <center>
     <img style="border-radius: 0.3125em;
