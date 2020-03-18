@@ -2,8 +2,8 @@
 layout: post
 title: 为什么Gem5 RISC-V中add的OPCODE为0x0c?
 date: 2019-11-28
-categories: 技术文章
-tags: [转载,技术文章]
+categories: Tech
+tags: [Eaasy,Tech]
 description: 为什么Gem5 RISC-V中add的OPCODE为0x0c，在看Gem5 RISC-V的源码的decoder.isa时候，发现add的opcode为0x0c，与手册上面的0x33不一样，但是程序都是可以正常运行的。后来查资料发现了答案。
 ---
 

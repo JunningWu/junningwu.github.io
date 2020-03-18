@@ -2,8 +2,8 @@
 layout: post
 title: 学习GNU Binutils GDB及记录
 date: 2019-12-16
-categories: 技术文章
-tags: [随笔,技术文章]
+categories: Tech
+tags: [Eaasy,Tech]
 description: RISC-V GNU Binutils GDB新增自定义指令相关源码分析。
 ---
 ```

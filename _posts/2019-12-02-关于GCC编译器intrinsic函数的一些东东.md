@@ -2,8 +2,8 @@
 layout: post
 title: 关于GCC编译器intrinsic函数的一些东东
 date: 2019-12-02
-categories: 技术文章
-tags: [随笔,技术文章]
+categories: Tech
+tags: [Eaasy,Tech]
 description: 接触过比较多的intrinsic函数是TI的dsp所提供的库函数，为什么全世界都在用TI的DSP，就是因为他们针对不同的应用领域，提供了执行效率较高，用户编程友好的库函数，而这些大多数的库函数，都是采用intrinsic实现的。甚至对于一些加速器，比如Turbo码编译码器、FFT加速器等，使用的时候就跟调一个普通的函数一样，一个简单的函数调用就可以。
 ---
 

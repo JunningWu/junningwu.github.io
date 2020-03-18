@@ -2,8 +2,8 @@
 layout: post
 title: FIR Filter with a C program example
 date: 2020-02-27
-categories: 技术文章
-tags: [随笔,技术文章]
+categories: Tech
+tags: [Eaasy,Tech]
 description: FIR滤波器，是一种数字信号处理领域较为常见的滤波器，其本质上是一种卷积运算，也就是用系数（也称为阶数），与输入的信号进行卷积操作。本篇就简单介绍一下FIR滤波器的原理，并且通过一个可执行的C程序示例，便于初学者理解。同时，为了便于实现，本文提供了浮点和定点两个版本的示例程序。
 ---
 

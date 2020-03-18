@@ -2,8 +2,8 @@
 layout: post
 title: 从零安装Pulpissimo及开发环境
 date: 2019-12-06
-categories: 技术文章
-tags: [随笔,技术文章]
+categories: Tech
+tags: [Eaasy,Tech]
 description: Pulp-platform是一个众多RISC-V相关处理器核和SoC平台的集合，由于项目繁多，分支不一，搭建一个能用的平台也没有一个比较容易上手的教程，博主也是反反复复卸载安装了无数个虚拟机，希望这个帖子可以记录一下能够使用的初学者上手的示例。
 ---
 

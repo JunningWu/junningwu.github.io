@@ -2,8 +2,8 @@
 layout: post
 title: Some Thoughts about Andrew Ng's LexPodcast Interview
 date: 2020-03-01
-categories: 随笔
-tags: [随笔]
+categories: Eaasy
+tags: [Eaasy]
 description: 在2020年的2月份，吴恩达，这位深度学习领域的知名学者，众多深度学习从业者的引路人，前百度IDL领头羊，接受了Lexpodcast的专访，谈论了关于人工智能，在线教育以及真实世界AI的一些观点，其中很多都对我产生了很大的影响，差不多一个半小时的采访，前前后后看了四五遍。
 ---
 

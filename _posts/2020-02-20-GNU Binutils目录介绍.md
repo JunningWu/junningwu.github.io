@@ -2,8 +2,8 @@
 layout: post
 title: GNU Binutils目录框架及简介
 date: 2020-02-20
-categories: 技术文章
-tags: [技术文章]
+categories: Tech
+tags: [Tech]
 description: 最近因为工作需要，对于自定义的指令进行支持，感觉写.word或者.insn对于单条指令的验证和测试还算ok，但是如果指令数量较多，则就不太合适，还是需要工具能够进行汇编生成可执行代码的。而这部分工作需要修改的就是GNU Binutils。
 ---
 

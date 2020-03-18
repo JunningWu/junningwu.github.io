@@ -2,8 +2,8 @@
 layout: post
 title: 安装一个可用的Linux版本Modelsim
 date: 2019-12-11
-categories: 技术文章
-tags: [随笔,技术文章]
+categories: Tech
+tags: [Eaasy,Tech]
 description: Linux版本Modelsim，Intel FPGA Edition 10.5b，Ubuntu 16.04虚拟机，VMware，不需要license。
 ---
 ## ModelSimSetup-16.1.0

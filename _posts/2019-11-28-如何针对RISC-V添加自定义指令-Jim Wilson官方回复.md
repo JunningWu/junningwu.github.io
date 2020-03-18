@@ -2,8 +2,8 @@
 layout: post
 title: 如何针对RISC-V添加自定义指令？
 date: 2019-11-28
-categories: 技术文章
-tags: [转载,技术文章]
+categories: Tech
+tags: [Eaasy,Tech]
 description: 如何针对RISC-V添加自定义指令？GNU的开发者Jim Wilson在邮件列表中的回复，比较具有启发意义。
 ---
 It is easier to add instructions to binutils than gcc.  For binutils, 

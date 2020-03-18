@@ -2,8 +2,8 @@
 layout: post
 title: Adding Custom Instruction For Your Own RISC-V CPU Using LLVM+Clang
 date: 2020-03-16
-categories: 技术文章
-tags: [随笔,技术文章]
+categories: Tech
+tags: [Essay,Tech]
 description: 本篇主要记录一下初学使用LLVM的后端完成自定义指令集的汇编和反汇编。由于一些情况下，自定义指令集的指令格式与标准指令集不一样，通过修改Gnu Binutils的方式，不能套用已有的函数定义和声明，复杂度会比较高，博主经过数次尝试，依然不能完成这项任务，所以就转向了LLVM。目前来看，一切运行的还不错，就先做个阶段性的工作总结记录一下。
 ---
 
@@ -145,7 +145,7 @@ $(RISCV_clang) $(incs) $(RISCV_GCC_OPTS) -o $(WORK_DIR)/build/$@/$@ $(src) $(RIS
 $(RISCV_OBJDUMP) -d $(WORK_DIR)/build/$@/$@ > $(WORK_DIR)/build/$@/$@.S
 ```
 
-反汇编代码如下：
+采用GCC OBJDUMP进行反汇编后的代码如下：
 
 ```
 04001048 <main>:
@@ -175,6 +175,38 @@ $(RISCV_OBJDUMP) -d $(WORK_DIR)/build/$@/$@ > $(WORK_DIR)/build/$@/$@.S
  40010a4:	00c12083          	lw	ra,12(sp)
  40010a8:	01010113          	addi	sp,sp,16
  40010ac:	00008067          	ret
+```
+
+采用LLVM OBJDUMP进行反汇编后的代码如下：
+
+```
+04001048 main:
+ 4001048: 13 01 01 ff                  	addi	sp, sp, -16
+ 400104c: 23 26 11 00                  	sw	ra, 12(sp)
+ 4001050: 23 24 81 00                  	sw	s0, 8(sp)
+ 4001054: 13 05 50 00                  	addi	a0, zero, 5
+ 4001058: 93 05 20 00                  	addi	a1, zero, 2
+ 400105c: 0b 15 b5 c4                  	mulsri	a0, a0, a1, 2
+ 4001060: 93 05 c0 01                  	addi	a1, zero, 28
+ 4001064: 63 12 b5 02                  	bne	a0, a1, 36
+ 4001068: 37 05 10 08                  	lui	a0, 33024
+ 400106c: 13 05 c5 ff                  	addi	a0, a0, -4
+ 4001070: 93 05 10 00                  	addi	a1, zero, 1
+ 4001074: ef 00 80 41                  	jal	1048
+ 4001078: 13 04 00 00                  	mv	s0, zero
+ 400107c: 37 c5 ad de                  	lui	a0, 912092
+ 4001080: 93 05 f5 ee                  	addi	a1, a0, -273
+ 4001084: 6f 00 c0 00                  	j	12
+ 4001088: 93 05 00 00                  	mv	a1, zero
+ 400108c: 13 04 f0 ff                  	addi	s0, zero, -1
+ 4001090: 37 05 10 08                  	lui	a0, 33024
+ 4001094: 13 05 c5 ff                  	addi	a0, a0, -4
+ 4001098: ef 00 40 3f                  	jal	1012
+ 400109c: 13 05 04 00                  	mv	a0, s0
+ 40010a0: 03 24 81 00                  	lw	s0, 8(sp)
+ 40010a4: 83 20 c1 00                  	lw	ra, 12(sp)
+ 40010a8: 13 01 01 01                  	addi	sp, sp, 16
+ 40010ac: 67 80 00 00                  	ret
 ```
 
 上面程序地址为0x400105c的那条指令，也就是0xc4b5150b，就是我们程序中的mulsrN指令码。
