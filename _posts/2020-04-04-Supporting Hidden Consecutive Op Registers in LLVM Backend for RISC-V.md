@@ -152,4 +152,321 @@ clang -I./env -I./common -I./src/test_newinst -I/home/llvm/workspace/llvm/llvm-p
 
 ///////////////我是分割线/////////////2020-04-04//////////////////
 
+查看一下clang生成的LLVM IR，使用命令为clang -S -emit-llvm main.c
 
+```
+; Function Attrs: noinline nounwind optnone
+define dso_local i32 @main() #0 {
+  %1 = alloca i32, align 4
+  %2 = alloca i32, align 4
+  %3 = alloca i32, align 4
+  %4 = alloca i32, align 4
+  store i32 0, i32* %1, align 4
+  store i32 5, i32* %2, align 4
+  store i32 2, i32* %3, align 4
+  %5 = load i32, i32* %2, align 4
+  %6 = load i32, i32* %3, align 4
+  %7 = call i32 asm sideeffect "lqp   $0, $1, $2, 4\0A\09", "=r,r,r"(i32 %5, i32 %6) #1, !srcloc !3
+  store i32 %7, i32* %4, align 4
+  ret i32 0
+}
+
+```
+
+///////////////我是分割线/////////////2020-04-06//////////////////
+
+通过查找错误信息“invalid operand for instruction”，我们发现在/lib/Target/RISCV/AsmParser/RISCVAsmParser.cpp中，存在下面的函数调用，函数RISCVAsmParser::MatchAndEmitInstruction调用函数MatchInstructionImpl，根据执行后的返回结果，判断Match_Success、Match_MissingFeature、Match_MnemonicFail、Match_InvalidOperand。而且通过增加调试信息，可以确定编译函数所报的错误，就是这段代码的作用。
+
+其实这部分主要完成的工作是Instruction Alias Processing，指令别名处理，指令解析后，将进入MatchInstructionImpl函数。MatchInstructionImpl函数执行别名处理，然后进行实际匹配。别名处理是将相同指令的不同词汇形式规范化为一个表示形式的阶段。别名有几种不同的实现方式，它们的处理顺序如下（从最简单/最弱到最复杂/最强大）。通常，希望使用满足指令要求的第一种别名机制，因为这将允许更简洁的描述。
+
+```
+auto Result =
+    MatchInstructionImpl(Operands, Inst, ErrorInfo, MissingFeatures,
+                         MatchingInlineAsm);
+
+... ...
+
+case Match_InvalidOperand: {
+    SMLoc ErrorLoc = IDLoc;
+    if (ErrorInfo != ~0U) {
+      if (ErrorInfo >= Operands.size())
+        return Error(ErrorLoc, "too few operands for instruction");
+
+      ErrorLoc = ((RISCVOperand &)*Operands[ErrorInfo]).getStartLoc();
+      if (ErrorLoc == SMLoc())
+        ErrorLoc = IDLoc;
+    }
+    return Error(ErrorLoc, "invalid operand for instruction");
+  }
+```
+
+通过增加指令别名的方式，也没有解决出现的问题。
+
+```
+def : InstAlias<"lqp $rd, $rs1, $rs2, $shift", (LQP GPRA0:$rd, GPRNOA0A1A2A3:$rs1, GPRNOA0A1A2A3:$rs2, simm5:$shift)>;
+```
+
+通过查找文件build/lib/Target/RISCV/RISCVGenMCCodeEmitter.inc，找到如下代码，是函数uint64_t RISCVMCCodeEmitter::getBinaryCodeForInstr(const MCInst &MI, SmallVectorImpl<MCFixup> &Fixups, const MCSubtargetInfo &STI)的片段。是生成指令二进制码的代码段。其中，比较重要的函数是getMachineOpValue()。
+
+```
+case RISCV::ADDSRI:
+case RISCV::LQP:
+case RISCV::MAHSRI:
+case RISCV::MALSRI:
+case RISCV::MSHSRI:
+case RISCV::MSLSRI:
+case RISCV::MULSRI:
+case RISCV::SUBSRI: {
+      // op: rs2
+      op = getMachineOpValue(MI, MI.getOperand(2), Fixups, STI);
+      op &= UINT64_C(31);
+      op <<= 20;
+      Value |= op;
+      // op: rs1
+      op = getMachineOpValue(MI, MI.getOperand(1), Fixups, STI);
+      op &= UINT64_C(31);
+      op <<= 15;
+      Value |= op;
+      // op: rd
+      op = getMachineOpValue(MI, MI.getOperand(0), Fixups, STI);
+      op &= UINT64_C(31);
+      op <<= 7;
+      Value |= op;
+      // op: shift
+      op = getMachineOpValue(MI, MI.getOperand(3), Fixups, STI);
+      op &= UINT64_C(31);
+      op <<= 25;
+      Value |= op;
+      break;
+    }
+```
+
+通过追踪，找到了函数getMachineOpValue()的定义，这个函数的功能应该是把输入的寄存器或者立即数，转换成数值形式，为了使得函数getBinaryCodeForInstr()能够根据二进制数将32位指令码填充完毕。
+
+```
+unsigned
+RISCVMCCodeEmitter::getMachineOpValue(const MCInst &MI, const MCOperand &MO,
+                                      SmallVectorImpl<MCFixup> &Fixups,
+                                      const MCSubtargetInfo &STI) const {
+
+  if (MO.isReg())
+    return Ctx.getRegisterInfo()->getEncodingValue(MO.getReg());
+
+  if (MO.isImm())
+    return static_cast<unsigned>(MO.getImm());
+
+  llvm_unreachable("Unhandled expression!");
+  return 0;
+}
+```
+
+重新再回来看看函数MatchInstructionImpl()，也没有发现跟问题相关的代码段或者逻辑。
+
+```
+unsigned RISCVAsmParser::
+MatchInstructionImpl(const OperandVector &Operands,
+                     MCInst &Inst,
+                     uint64_t &ErrorInfo,
+                     FeatureBitset &MissingFeatures,
+                     bool matchingInlineAsm, unsigned VariantID) {
+  // Eliminate obvious mismatches.
+  if (Operands.size() > 6) {
+    ErrorInfo = 6;
+    return Match_InvalidOperand;
+  }
+
+  // Get the current feature set.
+  const FeatureBitset &AvailableFeatures = getAvailableFeatures();
+
+  // Get the instruction mnemonic, which is the first token.
+  StringRef Mnemonic = ((RISCVOperand&)*Operands[0]).getToken();
+
+  // Process all MnemonicAliases to remap the mnemonic.
+  applyMnemonicAliases(Mnemonic, AvailableFeatures, VariantID);
+
+  // Some state to try to produce better error messages.
+  bool HadMatchOtherThanFeatures = false;
+  bool HadMatchOtherThanPredicate = false;
+  unsigned RetCode = Match_InvalidOperand;
+  MissingFeatures.set();
+  // Set ErrorInfo to the operand that mismatches if it is
+  // wrong for all instances of the instruction.
+  ErrorInfo = ~0ULL;
+  // Find the appropriate table for this asm variant.
+  const MatchEntry *Start, *End;
+  switch (VariantID) {
+  default: llvm_unreachable("invalid variant!");
+  case 0: Start = std::begin(MatchTable0); End = std::end(MatchTable0); break;
+  }
+  // Search the table.
+  auto MnemonicRange = std::equal_range(Start, End, Mnemonic, LessOpcode());
+
+  DEBUG_WITH_TYPE("asm-matcher", dbgs() << "AsmMatcher: found " <<
+  std::distance(MnemonicRange.first, MnemonicRange.second) << 
+  " encodings with mnemonic '" << Mnemonic << "'\n");
+
+  // Return a more specific error code if no mnemonics match.
+  if (MnemonicRange.first == MnemonicRange.second)
+    return Match_MnemonicFail;
+
+  for (const MatchEntry *it = MnemonicRange.first, *ie = MnemonicRange.second;
+       it != ie; ++it) {
+    const FeatureBitset &RequiredFeatures = FeatureBitsets[it->RequiredFeaturesIdx];
+    bool HasRequiredFeatures =
+      (AvailableFeatures & RequiredFeatures) == RequiredFeatures;
+    DEBUG_WITH_TYPE("asm-matcher", dbgs() << "Trying to match opcode "
+                                          << MII.getName(it->Opcode) << "\n");
+    // equal_range guarantees that instruction mnemonic matches.
+    assert(Mnemonic == it->getMnemonic());
+    bool OperandsValid = true;
+    for (unsigned FormalIdx = 0, ActualIdx = 1; FormalIdx != 5; ++FormalIdx) {
+      auto Formal = static_cast<MatchClassKind>(it->Classes[FormalIdx]);
+      DEBUG_WITH_TYPE("asm-matcher",
+                      dbgs() << "  Matching formal operand class " << getMatchClassName(Formal)
+                             << " against actual operand at index " << ActualIdx);
+      if (ActualIdx < Operands.size())
+        DEBUG_WITH_TYPE("asm-matcher", dbgs() << " (";
+                        Operands[ActualIdx]->print(dbgs()); dbgs() << "): ");
+      else
+        DEBUG_WITH_TYPE("asm-matcher", dbgs() << ": ");
+      if (ActualIdx >= Operands.size()) {
+        DEBUG_WITH_TYPE("asm-matcher", dbgs() << "actual operand index out of range ");
+        OperandsValid = (Formal == InvalidMatchClass) || isSubclass(Formal, OptionalMatchClass);
+        if (!OperandsValid) ErrorInfo = ActualIdx;
+        break;
+      }
+      MCParsedAsmOperand &Actual = *Operands[ActualIdx];
+      unsigned Diag = validateOperandClass(Actual, Formal);
+      if (Diag == Match_Success) {
+        DEBUG_WITH_TYPE("asm-matcher",
+                        dbgs() << "match success using generic matcher\n");
+        ++ActualIdx;
+        continue;
+      }
+      // If the generic handler indicates an invalid operand
+      // failure, check for a special case.
+      if (Diag != Match_Success) {
+        unsigned TargetDiag = validateTargetOperandClass(Actual, Formal);
+        if (TargetDiag == Match_Success) {
+          DEBUG_WITH_TYPE("asm-matcher",
+                          dbgs() << "match success using target matcher\n");
+          ++ActualIdx;
+          continue;
+        }
+        // If the target matcher returned a specific error code use
+        // that, else use the one from the generic matcher.
+        if (TargetDiag != Match_InvalidOperand && HasRequiredFeatures)
+          Diag = TargetDiag;
+      }
+      // If current formal operand wasn't matched and it is optional
+      // then try to match next formal operand
+      if (Diag == Match_InvalidOperand && isSubclass(Formal, OptionalMatchClass)) {
+        DEBUG_WITH_TYPE("asm-matcher", dbgs() << "ignoring optional operand\n");
+        continue;
+      }
+      // If this operand is broken for all of the instances of this
+      // mnemonic, keep track of it so we can report loc info.
+      // If we already had a match that only failed due to a
+      // target predicate, that diagnostic is preferred.
+      if (!HadMatchOtherThanPredicate &&
+          (it == MnemonicRange.first || ErrorInfo <= ActualIdx)) {
+        if (HasRequiredFeatures && (ErrorInfo != ActualIdx || Diag != Match_InvalidOperand))
+          RetCode = Diag;
+        ErrorInfo = ActualIdx;
+      }
+      // Otherwise, just reject this instance of the mnemonic.
+      OperandsValid = false;
+      break;
+    }
+
+    if (!OperandsValid) {
+      DEBUG_WITH_TYPE("asm-matcher", dbgs() << "Opcode result: multiple "
+                                               "operand mismatches, ignoring "
+                                               "this opcode\n");
+      continue;
+    }
+    if (!HasRequiredFeatures) {
+      HadMatchOtherThanFeatures = true;
+      FeatureBitset NewMissingFeatures = RequiredFeatures & ~AvailableFeatures;
+      DEBUG_WITH_TYPE("asm-matcher", dbgs() << "Missing target features:";
+                       for (unsigned I = 0, E = NewMissingFeatures.size(); I != E; ++I)
+                         if (NewMissingFeatures[I])
+                           dbgs() << ' ' << I;
+                       dbgs() << "\n");
+      if (NewMissingFeatures.count() <=
+          MissingFeatures.count())
+        MissingFeatures = NewMissingFeatures;
+      continue;
+    }
+
+    Inst.clear();
+
+    Inst.setOpcode(it->Opcode);
+    // We have a potential match but have not rendered the operands.
+    // Check the target predicate to handle any context sensitive
+    // constraints.
+    // For example, Ties that are referenced multiple times must be
+    // checked here to ensure the input is the same for each match
+    // constraints. If we leave it any later the ties will have been
+    // canonicalized
+    unsigned MatchResult;
+    if ((MatchResult = checkEarlyTargetMatchPredicate(Inst, Operands)) != Match_Success) {
+      Inst.clear();
+      DEBUG_WITH_TYPE(
+          "asm-matcher",
+          dbgs() << "Early target match predicate failed with diag code "
+                 << MatchResult << "\n");
+      RetCode = MatchResult;
+      HadMatchOtherThanPredicate = true;
+      continue;
+    }
+
+    if (matchingInlineAsm) {
+      convertToMapAndConstraints(it->ConvertFn, Operands);
+      if (!checkAsmTiedOperandConstraints(*this, it->ConvertFn, Operands, ErrorInfo))
+        return Match_InvalidTiedOperand;
+
+      return Match_Success;
+    }
+
+    // We have selected a definite instruction, convert the parsed
+    // operands into the appropriate MCInst.
+    convertToMCInst(it->ConvertFn, Inst, it->Opcode, Operands);
+
+    // We have a potential match. Check the target predicate to
+    // handle any context sensitive constraints.
+    if ((MatchResult = checkTargetMatchPredicate(Inst)) != Match_Success) {
+      DEBUG_WITH_TYPE("asm-matcher",
+                      dbgs() << "Target match predicate failed with diag code "
+                             << MatchResult << "\n");
+      Inst.clear();
+      RetCode = MatchResult;
+      HadMatchOtherThanPredicate = true;
+      continue;
+    }
+
+    if (!checkAsmTiedOperandConstraints(*this, it->ConvertFn, Operands, ErrorInfo))
+      return Match_InvalidTiedOperand;
+
+    DEBUG_WITH_TYPE(
+        "asm-matcher",
+        dbgs() << "Opcode result: complete match, selecting this opcode\n");
+    return Match_Success;
+  }
+
+  // Okay, we had no match.  Try to return a useful error code.
+  if (HadMatchOtherThanPredicate || !HadMatchOtherThanFeatures)
+    return RetCode;
+
+  ErrorInfo = 0;
+  return Match_MissingFeature;
+}
+```
+
+接着，分析两个类MCInstrDesc和MCOperandInfo。从代码中，可以看出LQP指令，其实已经按照不同的寄存器组生成了相应的OperandInfo111[]和RISCVInsts[]。
+
+```
+static const MCOperandInfo OperandInfo111[] = { { RISCV::GPRA0RegClassID, 0, MCOI::OPERAND_REGISTER, 0 }, { RISCV::GPRNOA0A1A2A3RegClassID, 0, MCOI::OPERAND_REGISTER, 0 }, { RISCV::GPRNOA0A1A2A3RegClassID, 0, MCOI::OPERAND_REGISTER, 0 }, { -1, 0, RISCVOp::OPERAND_SIMM5, 0 }, };
+
+{ 457,	4,	1,	4,	0,	0|(1ULL<<MCID::MayLoad), 0x12ULL, nullptr, nullptr, OperandInfo111, -1 ,nullptr },  // Inst #457 = LQP
+```
