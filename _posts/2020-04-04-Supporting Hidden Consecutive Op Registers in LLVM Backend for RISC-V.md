@@ -470,3 +470,181 @@ static const MCOperandInfo OperandInfo111[] = { { RISCV::GPRA0RegClassID, 0, MCO
 
 { 457,	4,	1,	4,	0,	0|(1ULL<<MCID::MayLoad), 0x12ULL, nullptr, nullptr, OperandInfo111, -1 ,nullptr },  // Inst #457 = LQP
 ```
+
+///////////////我是分割线/////////////2020-04-07//////////////////
+
+今天终于忍不住要在llvm-dev上面发问了，很快就得到了回复(Aaron Smith)，立刻准备试一下。
+
+```
+The register class for inline asm is determined by RISCVTargetLowering::getRegForInlineAsmConstraint().
+Maybe you need to modify that method to return your new register class.
+```
+
+在文件/lib/Target/RISCV/RISCVISelLowing.cpp中，我找到了getRegForInlineAsmConstraint()函数的定义，现在的代码，返回的只有GPRReg、FPR32Reg和FPR64Reg三种。而目前的RISC-V inline asm支持的标号为6类，即A、I、J、K、f、r。
+
+```
+RISC-V:
+
+A: An address operand (using a general-purpose register, without an offset).
+I: A 12-bit signed integer immediate operand.
+J: A zero integer immediate operand.
+K: A 5-bit unsigned integer immediate operand.
+f: A 32- or 64-bit floating-point register (requires F or D extension).
+r: A 32- or 64-bit general-purpose register (depending on the platform XLEN).
+```
+
+```
+std::pair<unsigned, const TargetRegisterClass *>
+RISCVTargetLowering::getRegForInlineAsmConstraint(const TargetRegisterInfo *TRI,
+                                                  StringRef Constraint,
+                                                  MVT VT) const {
+  // First, see if this is a constraint that directly corresponds to a
+  // RISCV register class.
+  if (Constraint.size() == 1) {
+    switch (Constraint[0]) {
+    case 'r':
+      return std::make_pair(0U, &RISCV::GPRRegClass);
+    case 'f':
+      if (Subtarget.hasStdExtF() && VT == MVT::f32)
+        return std::make_pair(0U, &RISCV::FPR32RegClass);
+      if (Subtarget.hasStdExtD() && VT == MVT::f64)
+        return std::make_pair(0U, &RISCV::FPR64RegClass);
+      break;
+    default:
+      break;
+    }
+  }
+
+  // Clang will correctly decode the usage of register name aliases into their
+  // official names. However, other frontends like `rustc` do not. This allows
+  // users of these frontends to use the ABI names for registers in LLVM-style
+  // register constraints.
+  Register XRegFromAlias = StringSwitch<Register>(Constraint.lower())
+                               .Case("{zero}", RISCV::X0)
+                               .Case("{ra}", RISCV::X1)
+                               .Case("{sp}", RISCV::X2)
+                               .Case("{gp}", RISCV::X3)
+                               .Case("{tp}", RISCV::X4)
+                               .Case("{t0}", RISCV::X5)
+                               .Case("{t1}", RISCV::X6)
+                               .Case("{t2}", RISCV::X7)
+                               .Cases("{s0}", "{fp}", RISCV::X8)
+                               .Case("{s1}", RISCV::X9)
+                               .Case("{a0}", RISCV::X10)
+                               .Case("{a1}", RISCV::X11)
+                               .Case("{a2}", RISCV::X12)
+                               .Case("{a3}", RISCV::X13)
+                               .Case("{a4}", RISCV::X14)
+                               .Case("{a5}", RISCV::X15)
+                               .Case("{a6}", RISCV::X16)
+                               .Case("{a7}", RISCV::X17)
+                               .Case("{s2}", RISCV::X18)
+                               .Case("{s3}", RISCV::X19)
+                               .Case("{s4}", RISCV::X20)
+                               .Case("{s5}", RISCV::X21)
+                               .Case("{s6}", RISCV::X22)
+                               .Case("{s7}", RISCV::X23)
+                               .Case("{s8}", RISCV::X24)
+                               .Case("{s9}", RISCV::X25)
+                               .Case("{s10}", RISCV::X26)
+                               .Case("{s11}", RISCV::X27)
+                               .Case("{t3}", RISCV::X28)
+                               .Case("{t4}", RISCV::X29)
+                               .Case("{t5}", RISCV::X30)
+                               .Case("{t6}", RISCV::X31)
+                               .Default(RISCV::NoRegister);
+  if (XRegFromAlias != RISCV::NoRegister)
+    return std::make_pair(XRegFromAlias, &RISCV::GPRRegClass);
+
+  // Since TargetLowering::getRegForInlineAsmConstraint uses the name of the
+  // TableGen record rather than the AsmName to choose registers for InlineAsm
+  // constraints, plus we want to match those names to the widest floating point
+  // register type available, manually select floating point registers here.
+  //
+  // The second case is the ABI name of the register, so that frontends can also
+  // use the ABI names in register constraint lists.
+  if (Subtarget.hasStdExtF() || Subtarget.hasStdExtD()) {
+    std::pair<Register, Register> FReg =
+        StringSwitch<std::pair<Register, Register>>(Constraint.lower())
+            .Cases("{f0}", "{ft0}", {RISCV::F0_F, RISCV::F0_D})
+            .Cases("{f1}", "{ft1}", {RISCV::F1_F, RISCV::F1_D})
+            .Cases("{f2}", "{ft2}", {RISCV::F2_F, RISCV::F2_D})
+            .Cases("{f3}", "{ft3}", {RISCV::F3_F, RISCV::F3_D})
+            .Cases("{f4}", "{ft4}", {RISCV::F4_F, RISCV::F4_D})
+            .Cases("{f5}", "{ft5}", {RISCV::F5_F, RISCV::F5_D})
+            .Cases("{f6}", "{ft6}", {RISCV::F6_F, RISCV::F6_D})
+            .Cases("{f7}", "{ft7}", {RISCV::F7_F, RISCV::F7_D})
+            .Cases("{f8}", "{fs0}", {RISCV::F8_F, RISCV::F8_D})
+            .Cases("{f9}", "{fs1}", {RISCV::F9_F, RISCV::F9_D})
+            .Cases("{f10}", "{fa0}", {RISCV::F10_F, RISCV::F10_D})
+            .Cases("{f11}", "{fa1}", {RISCV::F11_F, RISCV::F11_D})
+            .Cases("{f12}", "{fa2}", {RISCV::F12_F, RISCV::F12_D})
+            .Cases("{f13}", "{fa3}", {RISCV::F13_F, RISCV::F13_D})
+            .Cases("{f14}", "{fa4}", {RISCV::F14_F, RISCV::F14_D})
+            .Cases("{f15}", "{fa5}", {RISCV::F15_F, RISCV::F15_D})
+            .Cases("{f16}", "{fa6}", {RISCV::F16_F, RISCV::F16_D})
+            .Cases("{f17}", "{fa7}", {RISCV::F17_F, RISCV::F17_D})
+            .Cases("{f18}", "{fs2}", {RISCV::F18_F, RISCV::F18_D})
+            .Cases("{f19}", "{fs3}", {RISCV::F19_F, RISCV::F19_D})
+            .Cases("{f20}", "{fs4}", {RISCV::F20_F, RISCV::F20_D})
+            .Cases("{f21}", "{fs5}", {RISCV::F21_F, RISCV::F21_D})
+            .Cases("{f22}", "{fs6}", {RISCV::F22_F, RISCV::F22_D})
+            .Cases("{f23}", "{fs7}", {RISCV::F23_F, RISCV::F23_D})
+            .Cases("{f24}", "{fs8}", {RISCV::F24_F, RISCV::F24_D})
+            .Cases("{f25}", "{fs9}", {RISCV::F25_F, RISCV::F25_D})
+            .Cases("{f26}", "{fs10}", {RISCV::F26_F, RISCV::F26_D})
+            .Cases("{f27}", "{fs11}", {RISCV::F27_F, RISCV::F27_D})
+            .Cases("{f28}", "{ft8}", {RISCV::F28_F, RISCV::F28_D})
+            .Cases("{f29}", "{ft9}", {RISCV::F29_F, RISCV::F29_D})
+            .Cases("{f30}", "{ft10}", {RISCV::F30_F, RISCV::F30_D})
+            .Cases("{f31}", "{ft11}", {RISCV::F31_F, RISCV::F31_D})
+            .Default({RISCV::NoRegister, RISCV::NoRegister});
+    if (FReg.first != RISCV::NoRegister)
+      return Subtarget.hasStdExtD()
+                 ? std::make_pair(FReg.second, &RISCV::FPR64RegClass)
+                 : std::make_pair(FReg.first, &RISCV::FPR32RegClass);
+  }
+
+  return TargetLowering::getRegForInlineAsmConstraint(TRI, Constraint, VT);
+}
+```
+
+为了满足Haawking DSC的需求，现在新增三个算下，h代表GPRA0，x代表GPRNOA0A1，g代表GPRNOA0A1A2A3，修改代码如下：
+
+```
+if (Constraint.size() == 1) {
+    switch (Constraint[0]) {
+    case 'r':
+      return std::make_pair(0U, &RISCV::GPRRegClass);
+    case 'h':
+      return std::make_pair(0U, &RISCV::GPRA0RegClass);
+    case 'x':
+      return std::make_pair(0U, &RISCV::GPRNOA0A1RegClass);
+    case 'g':
+      return std::make_pair(0U, &RISCV::GPRNOA0A1A2A3RegClass);
+    case 'f':
+      if (Subtarget.hasStdExtF() && VT == MVT::f32)
+        return std::make_pair(0U, &RISCV::FPR32RegClass);
+      if (Subtarget.hasStdExtD() && VT == MVT::f64)
+        return std::make_pair(0U, &RISCV::FPR64RegClass);
+      break;
+    default:
+      break;
+    }
+  }
+```
+
+修改C程序如下，在编译生成LLVM IR结果的时候，报出错误，不识别h等字符，因此需要进行相应的修改：
+
+```
+  asm volatile
+  (
+    "lqp   %[z], %[x], %[y], 4\n\t"
+    : [z] "=h" (c)
+    : [x] "g" (a), [y] "g" (b)
+  ) ;
+
+
+error: invalid output constraint '=h' in asm
+```
+

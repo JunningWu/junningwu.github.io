@@ -34,3 +34,6 @@ patch –p1 < to-docu.patch
 patch –R –p1 <to-docu.patch
 
 
+## 查看linux工作目录的大小
+
+sudo du -sh /home/*
