@@ -482,6 +482,10 @@ Maybe you need to modify that method to return your new register class.
 
 在文件/lib/Target/RISCV/RISCVISelLowing.cpp中，我找到了getRegForInlineAsmConstraint()函数的定义，现在的代码，返回的只有GPRReg、FPR32Reg和FPR64Reg三种。而目前的RISC-V inline asm支持的标号为6类，即A、I、J、K、f、r。
 
+[6.47.3.1 Simple Constraints](https://gcc.gnu.org/onlinedocs/gcc/Simple-Constraints.html#Simple-Constraints)
+
+[6.47.3.4 Machine Constraints](https://gcc.gnu.org/onlinedocs/gcc/Machine-Constraints.html)
+
 ```
 RISC-V:
 
@@ -648,3 +652,84 @@ if (Constraint.size() == 1) {
 error: invalid output constraint '=h' in asm
 ```
 
+///////////////我是分割线/////////////2020-04-16//////////////////
+
+今天终于调试出来了，目前看来结果与预期的相一致。首先贴上来编译后的三条指令，LQP，LDP，SDP。
+
+```
+007e0124 main:
+  7e0124: 41 11                         addi sp, sp, -16
+  7e0126: 06 c6                         sw ra, 12(sp)
+  7e0128: 15 47                         addi a4, zero, 5
+  7e012a: 2b 35 c7 ff                   ldp a0, -4(a4)
+  7e012e: 2a c4                         sw a0, 8(sp)
+  7e0130: 2b 7e a7 fe                   sdp a0, -4(a4)
+  7e0134: 2a c4                         sw a0, 8(sp)
+  7e0136: 89 47                         addi a5, zero, 2
+  7e0138: 0b 05 f7 c8                   lqp a0, a4, a5, 4
+  7e013c: 2a c4                         sw a0, 8(sp)
+  7e013e: 49 65                         lui a0, 18
+  7e0140: 71 15                         addi a0, a0, -4
+  7e0142: b7 c5 ad de                   lui a1, 912092
+  7e0146: 93 85 f5 ee                   addi a1, a1, -273
+  7e014a: ef 10 b0 08                   jal 6282
+  7e014e: 01 45                         mv a0, zero
+  7e0150: b2 40                         lw ra, 12(sp)
+  7e0152: 41 01                         addi sp, sp, 16
+  7e0154: 82 80                         ret
+```
+
+需要修改的文件只有一个/lib/Target/RISCV/RISCVISelLowing.cpp，（得到这个结论，废了老鼻子劲了）。
+
+```
+RISCVTargetLowering::ConstraintType
+RISCVTargetLowering::getConstraintType(StringRef Constraint) const {
+  if (Constraint.size() == 1) {
+    switch (Constraint[0]) {
+    default:
+      break;
+    case 'd':
+      return C_RegisterClass;
+    case 'e':
+      return C_RegisterClass;
+    case 'f':
+      return C_RegisterClass;
+    case 'I':
+    case 'J':
+    case 'K':
+      return C_Immediate;
+    case 'A':
+      return C_Memory;
+    }
+  }
+  return TargetLowering::getConstraintType(Constraint);
+}
+```
+
+```
+// First, see if this is a constraint that directly corresponds to a
+  // RISCV register class.
+  if (Constraint.size() == 1) {
+    switch (Constraint[0]) {
+    case 'r':
+      return std::make_pair(0U, &RISCV::GPRRegClass);
+    case 'X':
+      return std::make_pair(0U, &RISCV::GPRA0RegClass);
+    case 'd':
+      return std::make_pair(0U, &RISCV::GPRNoA0A1RegClass);
+    case 'e':
+      return std::make_pair(0U, &RISCV::GPRNoA0A1A2A3RegClass);
+    case 'f':
+      if (Subtarget.hasStdExtF() && VT == MVT::f32)
+        return std::make_pair(0U, &RISCV::FPR32RegClass);
+      if (Subtarget.hasStdExtD() && VT == MVT::f64)
+        return std::make_pair(0U, &RISCV::FPR64RegClass);
+      break;
+    default:
+      break;
+    }
+  }
+```
+
+至此，这个工作也到一段落了。最近一周搞得头都大了，用的命令也就是一个find，有问题就查找错误信息，然后进行修改。甚至还修改了一些clang的文件，但是后来发现，这个方法是可行的。下一步就是继续研究，目前的效果只是能够选择A0而不让其他选择A0A1，A0A1A2A3等。
+（Junning Wu, At Beijing Xigema B106，20200416）
