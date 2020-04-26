@@ -75,8 +75,14 @@ Xin Huanga, QingBin Liu, **JunNing Wu**, XueLiang Du and DongLin Wang,"TxCP: A C
 
 ## 参与或主持项目：
 
+## **2019/10 - 至今 深度学习加速器/智能机器人处理器 预研项目**
+  - 电机控制算法分析，通过自定义指令集优化算法性能
+  - GCC/LLVM编译器支持自定义指令集
+  - Gem5模拟器
+  - DSC IDE开发
 
-## **2018/10 - 至今 深度学习加速器/智能机器人处理器 预研项目**
+
+## **2018/10 - 2019-10 深度学习加速器/智能机器人处理器 预研项目**
   - RISC-V 处理器与NVDLA结合，搭建SoC仿真平台，进行LeNet的仿真和验证。
   - 基于RISC-V指令集架构的计算机视觉（Computer Vision）加速部件设计
   - 电机控制算法分析，通过自定义指令集优化算法性能
@@ -127,6 +133,8 @@ Xin Huanga, QingBin Liu, **JunNing Wu**, XueLiang Du and DongLin Wang,"TxCP: A C
 
 
 2019年度芯师爷“硬核中国芯”专家评委
+
+2020年1月，中科科技培训中心，授课讲师
 
 ## 评论文章：
 
