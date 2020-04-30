@@ -25,18 +25,18 @@ description: 由于科研文档库于今日403（FxxK，▄█▀█●），现
 - riscv-tc-llvm：dsc_llvm_20200326.tar.gz
 - IDE-LLVM：IDE_LLVM-20200319.tar.gz
 
-1. **V20200326**:支持《2020_DSC_HX2802x__v0.6》，并根据ADDSR和SUBSR调整，修改LLVM工具
-链支持ADDSRI和SUBSRI
+1. **V20200326**:支持《2020_DSC_HX2802x__v0.6》，并根据ADDSR和SUBSR调整，修改LLVM工具链支持ADDSRI和SUBSRI
 
 
 ### CentOS（8.1）
 
 - riscv-tc-gcc： riscv-tc-gcc-centos8-20200414.tar.xz
-- riscv-tc-llvm： riscv-tc-llvm-centos8-20200414.tar.xz
-- IDE-LLVM： IDE_LLVM-20200414.tar.xz
+- riscv-tc-llvm： riscv-tc-llvm-centos8-20200417.tar.xz
+- IDE-LLVM： IDE_LLVM-20200417.tar.xz
 
 1. **V20200414**：支持《2020_DSC_HX2802x__v0.6》。
 
+2. **V20200417**: 支持《2020_DSC_HX2802x_指令提案_v0.7》。
 
 ### Windows（win7、win10）
 
@@ -49,7 +49,7 @@ description: 由于科研文档库于今日403（FxxK，▄█▀█●），现
 
 1.分别下载riscv-tc-llvm、riscv-tc-gcc和IDE压缩包并解压。对于Windows版本的IDE，可以跳过步骤2和步骤3，解压之后可以直接运行compile.bat，路径已经设置完成，且GCC和LLVM已经包括在内。
 
-2.修改IDE根目录下compile文件，$ENV{"PATH"} = $ENV{"PATH"}.":<解压路径>/riscv-tc-gcc/bin";$ENV{"PATH"} = $ENV{"PATH"}.":<解压路径>/riscv-tc-llvm/bin";$gcc_dir = "<解压路径>/riscv-tc-gcc";
+2.修改IDE根目录下compile文件，\$ENV{"PATH"} = \$ENV{"PATH"}.":<解压路径>/riscv-tc-gcc/bin";\$ENV{"PATH"} = \$ENV{"PATH"}.":<解压路径>/riscv-tc-llvm/bin";$gcc_dir = "<解压路径>/riscv-tc-gcc";
 
 3.修改IDE/MK目录下Makefile文件，newlib_incdir ?= <解压路径>/riscv-tc-llvm/riscv32-unknown-elf/include；newlib_libdir ?= <解压路径>/riscv-tc-llvm/riscv32-unknown-elf/lib
 
@@ -61,6 +61,23 @@ description: 由于科研文档库于今日403（FxxK，▄█▀█●），现
 
 7.如果首次编译，提示clang或者其他命令不存在，请查看PATH路径是否设置成功。
 
+8.如果centos虚拟机存在无法与宿主机通信的情况，可以通过设置共享文件夹的形式传输文件。共享文件夹在虚拟机的路径为/mnt/hgfs/。
+
+9.如果采用步骤8之后，没有在/mnt/hgfs目录下看到共享文件，可以执行
+
+//ubuntu
+```
+# sudo vmware-hgfsclient
+# sudo vmhgfs-fuse .host:/share /share -o allow_other -o uid=1001 -o gid=1001 
+```
+//centos
+```
+# su
+# vmware-hgfsclient
+# vmhgfs-fuse .host:/share /share -o allow_other -o uid=1001 -o gid=1001 
+```
+
+如不能解决，请联系junning.wu@mail.haawking.com。
 
 
 ## CentOS虚拟机使用说明
