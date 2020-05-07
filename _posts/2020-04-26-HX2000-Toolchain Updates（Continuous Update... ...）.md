@@ -22,27 +22,34 @@ description: 由于科研文档库于今日403（FxxK，▄█▀█●），现
 ### Ubuntu （16.04）
 
 - riscv-tc-gcc：riscv-tc-20200317-rv32-multilib.tar.gz
-- riscv-tc-llvm：dsc_llvm_20200326.tar.gz
-- IDE-LLVM：IDE_LLVM-20200319.tar.gz
+- riscv-tc-llvm：dsc_llvm_20200430.tar.gz
+- IDE-LLVM：IDE_LLVM-20200430.zip
 
 1. **V20200326**:支持《2020_DSC_HX2802x__v0.6》，并根据ADDSR和SUBSR调整，修改LLVM工具链支持ADDSRI和SUBSRI
+
+2. **V20200430**：支持《2020_DSC_HX2802x__v1.0》。
 
 
 ### CentOS（8.1）
 
 - riscv-tc-gcc： riscv-tc-gcc-centos8-20200414.tar.xz
-- riscv-tc-llvm： riscv-tc-llvm-centos8-20200417.tar.xz
-- IDE-LLVM： IDE_LLVM-20200417.tar.xz
+- riscv-tc-llvm： riscv-tc-llvm-centos8-20200430.zip
+- IDE-LLVM： IDE_LLVM-20200430.zip
 
 1. **V20200414**：支持《2020_DSC_HX2802x__v0.6》。
 
 2. **V20200417**: 支持《2020_DSC_HX2802x_指令提案_v0.7》。
 
+3. **V20200430**：支持《2020_DSC_HX2802x__v1.0》。
+
 ### Windows（win7、win10）
 
 - IDE-LLVM： IDE_DSC_LLVM_Win-Rel-20200424.zip
+- IDE-LLVM： IDE_DSC_LLVM_Win-Rel-20200430.zip
 
 1. **V20200424**：支持《2020_DSC_HX2802x__v0.9》。
+
+2. **V20200430**：支持《2020_DSC_HX2802x__v1.0》。
 
 
 ## 如何使用
@@ -78,6 +85,10 @@ description: 由于科研文档库于今日403（FxxK，▄█▀█●），现
 ```
 
 如不能解决，请联系junning.wu@mail.haawking.com。
+
+10.如果使用过程中提示缺少Windows的动态链接库，如mscvp140.dll或者vcruntime.dll，可以通过下载之后，放在windows\System32目录下。如果是在内网调试，可以在\lirw\software\DSC_IDE_dll目录下找到这两个文件，放在windows\System32目录下即可。
+
+
 
 
 ## CentOS虚拟机使用说明

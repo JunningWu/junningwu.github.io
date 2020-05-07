@@ -65,7 +65,7 @@ cd riscv-gnu-toolchain
 make -j2 2>&1 | tee make_gcc.log
 ```
 
-之后，就可以正确编译riscv-tc-gcc的工具链了，编译好以后，设置一下PATH路径。
+之后，就可以正确编译riscv-tc-gcc的工具链了，编译好以后，设置一下bashrc中的PATH路径。
 
 ```
 Administrator@WIN-M2UUSEE916N MINGW64 ~/work/HX2000-Toolchain/riscv-tc-gcc/bin
