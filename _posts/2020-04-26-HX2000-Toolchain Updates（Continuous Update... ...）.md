@@ -46,11 +46,13 @@ description: 由于科研文档库于今日403（FxxK，▄█▀█●），现
 
 - IDE-LLVM： IDE_DSC_LLVM_Win-Rel-20200424.zip
 - IDE-LLVM： IDE_DSC_LLVM_Win-Rel-20200430.zip
+- IDE-LLVM： IDE_DSC_LLVM_Win-Rel-20200518.zip
 
 1. **V20200424**：支持《2020_DSC_HX2802x__v0.9》。
 
 2. **V20200430**：支持《2020_DSC_HX2802x__v1.0》。
 
+2. **V20200518**：修复一些小问题。
 
 ## 如何使用
 
@@ -113,3 +115,8 @@ RTL仿真服务器操作系统为Redhat6.5和Redhat6.10，LLVM编译工具暂不
 ### 3.LLVM编译工具不支持rv32imc
 
  目前工具链支持rv32i/ilp32、rv32im/ilp32、rv32iac/ilp32、rv32imac/ilp32 、rv32imafc/ilp32f 、rv64imac/lp64 、rv64imafdc/lp64d；不支持rv32imc，暂时可以用rv32imac替代。
+
+### 4.遇到DIV、REM指令执行会出错
+ 
+ DSC不支持除法操作，但是当前版本编译器支持RV32imc指令集，因此会编译出div/rem等指令，执行的时候会出错。
+ 

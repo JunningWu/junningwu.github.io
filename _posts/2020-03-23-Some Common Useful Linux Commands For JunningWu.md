@@ -13,27 +13,36 @@ description: 这个帖子整理一些经常用到的Linux命令以及一些与Li
 
 ## 查找命令：find
 
+```
 find ./llvm/lib/Target/RISCV/ | xargs grep isUImm5 2>&1 | tee find.log
+```
 
 ## 打包patch和diff命令
 
 单个文件
+```
 
 diff –uN  from-file  to-file  >to-file.patch
 
 patch –p0 < to-file.patch
 
 patch –RE –p0 < to-file.patch
+```
 
 多个文件
+```
 
 diff –uNr  from-docu  to-docu  >to-docu.patch
 
 patch –p1 < to-docu.patch
 
 patch –R –p1 <to-docu.patch
-
+```
 
 ## 查看linux工作目录的大小
 
+```
+
 sudo du -sh /home/*
+
+```
