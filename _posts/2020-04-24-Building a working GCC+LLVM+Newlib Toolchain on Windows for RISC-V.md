@@ -85,7 +85,7 @@ riscv32-unknown-elf-gcc.exe: PE32+ executable (console) x86-64, for MS Windows
 
 可以直接在MSYS2里面编译RISCV-newlib。
 
-由于LLVM的仓库中，没有集成riscv-newlib的代码，因此需要手动编译出来，否则会找不到libm,libc,libgloss等库，我的路径设置的跟llvm的安装路径一样。
+由于LLVM的仓库中，没有集成riscv-newlib的代码，因此需要手动编译出来，否则会找不到libm,libc,libgloss等库，我的路径设置的跟llvm的安装路径（INSTALL_DIR环境变量）一样。
 
 ```
 % git clone https://github.com/riscv/riscv-newlib.git

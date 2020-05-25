@@ -104,7 +104,7 @@ clang-format          hmaptool               llvm-bcanalyzer  llvm-diff        l
 % cd riscv-newlib 
 % mkdir build
 % cd build
-% ../riscv-newlib/configure --target=riscv64-unknown-elf --prefix=$INSTALL_DIR
+% ../riscv-newlib/configure --target=riscv32-unknown-elf --prefix=$INSTALL_DIR
 % make all
 % make install
 ```
