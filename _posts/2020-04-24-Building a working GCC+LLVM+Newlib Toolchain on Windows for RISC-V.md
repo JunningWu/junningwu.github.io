@@ -122,3 +122,18 @@ LLVM_TARGETS_TO_BUILD （选择RISCV即可）
 之后，点击config和generate，就会在build目录下生成一个llvm.sln的工程文件，双击就可以打开VS2017的界面，在VS2017中选择Release之后，选择INSTALL，然后等着就行，结束以后，会在指定的安装目录下看到编译好的llvm。应该没有什么问题，至少我这边没有遇到。
 
 至此（2020-04-24， Beijing Xigema Building）。
+
+(以下更新于20200602，Beijing Xigema Building)
+
+上述编译过程，会依赖于mscvp140.dll和vcruntime140.dll两个动态链接库，而在一些版本的操作系统中可能发生由于这些库文件丢失而无法运行的错误。
+
+因此，通过cmake-gui修改LLVM的配置信息，具体参数为LLVM_USE_CRT_DEBUG, LLVM_USE_CRT_MINISIZEREL, LLVM_USE_CRT_RELEASE, LLVM_USE_CRT_RELWITHDEBINFO, 都选择为MT，
+
+```
+Using Debug VC++ CRT: MT
+Using Release VC++ CRT: MT
+Using MinSizeRel VC++ CRT: MT
+Using RelWithDebInfo VC++ CRT: MT
+Using Release VC++ CRT: MT
+```
+这样编译出来的可执行文件会大，但是不会依赖于上述的库文件。
