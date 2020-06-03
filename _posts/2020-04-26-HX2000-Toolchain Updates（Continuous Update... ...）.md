@@ -48,6 +48,7 @@ description: 由于科研文档库于今日403（FxxK，▄█▀█●），现
 - IDE-LLVM： IDE_DSC_LLVM_Win-Rel-20200430.zip
 - IDE-LLVM： IDE_DSC_LLVM_Win-Rel-20200518.zip
 - IDE-LLVM： IDE_DSC_LLVM_Win-Rel-20200523.zip
+- IDE-LLVM： IDE_DSC_LLVM_Win-Rel-20200602.zip
 
 1. **V20200424**：支持《2020_DSC_HX2802x__v0.9》。
 
@@ -57,25 +58,36 @@ description: 由于科研文档库于今日403（FxxK，▄█▀█●），现
 
 4. **V20200523**：支持double、float、整型等数据的乘除法操作。
 
+5. **V20200602**：使用静态库编译工具链，不依赖与操作系统的某些DLL库。
+
 ## 如何使用
 
-1.分别下载riscv-tc-llvm、riscv-tc-gcc和IDE压缩包并解压。对于Windows版本的IDE，可以跳过步骤2和步骤3，解压之后可以直接运行compile.bat，路径已经设置完成，且GCC和LLVM已经包括在内。
+### 1.
+分别下载riscv-tc-llvm、riscv-tc-gcc和IDE压缩包并解压。对于Windows版本的IDE，可以跳过步骤2和步骤3，解压之后可以直接运行compile.bat，路径已经设置完成，且GCC和LLVM已经包括在内。
 
-2.修改IDE根目录下compile文件，\$ENV{"PATH"} = \$ENV{"PATH"}.":<解压路径>/riscv-tc-gcc/bin";\$ENV{"PATH"} = \$ENV{"PATH"}.":<解压路径>/riscv-tc-llvm/bin";$gcc_dir = "<解压路径>/riscv-tc-gcc";
+### 2.
+修改IDE根目录下compile文件，\$ENV{"PATH"} = \$ENV{"PATH"}.":<解压路径>/riscv-tc-gcc/bin";\$ENV{"PATH"} = \$ENV{"PATH"}.":<解压路径>/riscv-tc-llvm/bin";$gcc_dir = "<解压路径>/riscv-tc-gcc";
 
-3.修改IDE/MK目录下Makefile文件，newlib_incdir ?= <解压路径>/riscv-tc-llvm/riscv32-unknown-elf/include；newlib_libdir ?= <解压路径>/riscv-tc-llvm/riscv32-unknown-elf/lib
+### 3.
+修改IDE/MK目录下Makefile文件，newlib_incdir ?= <解压路径>/riscv-tc-llvm/riscv32-unknown-elf/include；newlib_libdir ?= <解压路径>/riscv-tc-llvm/riscv32-unknown-elf/lib
 
-4.查看IDE/src目录下的示例程序test_newinst，里面包括部分自定义指令的内联汇编代码，确认无误后，回到IDE根目录，执行./compile test_newinst。如果没有报错，可以在IDE/build目录下看到示例程序test_newinst的编译结果以及反汇编程序，其中.S为gcc objdump反汇编结果（自定义指令显示为32比特16进制数），.ASM为llvm-objdump反汇编结果（显示自定义指令助记符）。
+### 4.
+查看IDE/src目录下的示例程序test_newinst，里面包括部分自定义指令的内联汇编代码，确认无误后，回到IDE根目录，执行./compile test_newinst。如果没有报错，可以在IDE/build目录下看到示例程序test_newinst的编译结果以及反汇编程序，其中.S为gcc objdump反汇编结果（自定义指令显示为32比特16进制数），.ASM为llvm-objdump反汇编结果（显示自定义指令助记符）。
 
-5.如不需要查看编译详细过程，可以将IDE/MK/Makefile中，clang的编译选项--verbose删除。
+### 5.
+如不需要查看编译详细过程，可以将IDE/MK/Makefile中，clang的编译选项--verbose删除。
 
-6.如需要联合编译C源代码程序和ASM源代码程序，可以通过修改 IDE/MK/Makefile中src变量，增加.s文件。默认Makefile只支持C源代码程序，Makefile_ASM只支持ASM源代码程序。 
+### 6.
+如需要联合编译C源代码程序和ASM源代码程序，可以通过修改 IDE/MK/Makefile中src变量，增加.s文件。默认Makefile只支持C源代码程序，Makefile_ASM只支持ASM源代码程序。 
 
-7.如果首次编译，提示clang或者其他命令不存在，请查看PATH路径是否设置成功。
+### 7.
+如果首次编译，提示clang或者其他命令不存在，请查看PATH路径是否设置成功。
 
-8.如果centos虚拟机存在无法与宿主机通信的情况，可以通过设置共享文件夹的形式传输文件。共享文件夹在虚拟机的路径为/mnt/hgfs/。
+### 8.
+如果centos虚拟机存在无法与宿主机通信的情况，可以通过设置共享文件夹的形式传输文件。共享文件夹在虚拟机的路径为/mnt/hgfs/。
 
-9.如果采用步骤8之后，没有在/mnt/hgfs目录下看到共享文件，可以执行
+### 9.
+如果采用步骤8之后，没有在/mnt/hgfs目录下看到共享文件，可以执行
 
 //ubuntu
 ```
@@ -91,7 +103,10 @@ description: 由于科研文档库于今日403（FxxK，▄█▀█●），现
 
 如不能解决，请联系junning.wu@mail.haawking.com。
 
-10.如果使用过程中提示缺少Windows的动态链接库，如mscvp140.dll或者vcruntime.dll，可以通过下载之后，放在windows\System32目录下。如果是在内网调试，可以在\lirw\software\DSC_IDE_dll目录下找到这两个文件，放在windows\System32目录下即可。
+### 10.
+如果使用过程中提示缺少Windows的动态链接库，如mscvp140.dll或者vcruntime.dll，可以通过下载之后，放在windows\System32目录下。如果是在内网调试，可以在\lirw\software\DSC_IDE_dll目录下找到这两个文件，放在windows\System32目录下即可。
+
+通过静态编译的方式，版本新于20200602的IDE应该不会存在依赖库找不到的问题。
 
 
 
