@@ -2,6 +2,7 @@
 layout: post
 title: HX2000-Toolchain Updates（Continuous Update... ...）
 date: 2020-04-26
+updated: 2020-06-03
 categories: Tech
 tags: [Essay,Tech]
 description: 由于科研文档库于今日403（FxxK，▄█▀█●），现在将HX2000-Toolchain的更新移到GitHub上面来。

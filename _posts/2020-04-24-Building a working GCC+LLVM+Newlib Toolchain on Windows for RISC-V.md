@@ -2,6 +2,7 @@
 layout: post
 title: Building a working GCC+LLVM+Newlib Toolchain on Windows for RISC-V
 date: 2020-04-24
+updated: 2020-06-02
 categories: Tech
 tags: [Essay,Tech]
 description: Building a working GCC+LLVM+Newlib Toolchain on Windows for RISC-V，主要介绍一下如何在Windows上面编译一个可用的LLVM for RISC-V工具链，包括riscv-gcc和riscv-newlib，从源码进行编译。
