@@ -2,7 +2,7 @@
 layout: post
 title: HX2000-Toolchain Updates（Continuous Update... ...）
 date: 2020-04-26
-updated: 2020-06-03
+updated: 2020-06-12
 categories: Tech
 tags: [Essay,Tech]
 description: 由于科研文档库于今日403（FxxK，▄█▀█●），现在将HX2000-Toolchain的更新移到GitHub上面来。
@@ -50,6 +50,7 @@ description: 由于科研文档库于今日403（FxxK，▄█▀█●），现
 - IDE-LLVM： IDE_DSC_LLVM_Win-Rel-20200518.zip
 - IDE-LLVM： IDE_DSC_LLVM_Win-Rel-20200523.zip
 - IDE-LLVM： IDE_DSC_LLVM_Win-Rel-20200602.zip
+- IDE-LLVM： IDE_DSC_LLVM_Win-Rel-20200612.zip
 
 1. **V20200424**：支持《2020_DSC_HX2802x__v0.9》。
 
@@ -60,6 +61,8 @@ description: 由于科研文档库于今日403（FxxK，▄█▀█●），现
 4. **V20200523**：支持double、float、整型等数据的乘除法操作。
 
 5. **V20200602**：使用静态库编译工具链，不依赖与操作系统的某些DLL库。
+
+5. **V20200612**：大更新版本：调整工程文件目录结构，ld文件和库文件以及Driver都统一放置于src目录下；修复编译器RPTI指令立即数错误；调整连续寄存器相关指令从X10到X12，涉及到32位乘法指令和LQP/LDP/SDP等。
 
 ## 如何使用
 
@@ -129,7 +132,7 @@ RTL仿真服务器操作系统为Redhat6.5和Redhat6.10，LLVM编译工具暂不
 
 ### 2.连续寄存器分配暂不支持
 
- 对于 DMAC、LQP、LDP 、SDP等《2020_DSC_HX2802x__v0.6》中源/目的寄存器为连续多个的指令，对于 MUL32、MUL32U、MUL32SU等《2020_DSC_HX2802x__v0.7》中源/目的寄存器为连续两个的指令，当前版本IDE支持A0固定寄存器的连续分配，即A0A1，A0A1A2A3，内嵌汇编程序的编写，参考IDE中示例程序。
+ 对于 DMAC、LQP、LDP 、SDP等《2020_DSC_HX2802x__v0.6》中源/目的寄存器为连续多个的指令，对于 MUL32、MUL32U、MUL32SU等《2020_DSC_HX2802x__v0.7》中源/目的寄存器为连续两个的指令，当前版本IDE支持A2固定寄存器的连续分配，即A2A3，A2A3A4A5，内嵌汇编程序的编写，参考IDE中示例程序。
 
 ### 3.LLVM编译工具不支持rv32imc
 
