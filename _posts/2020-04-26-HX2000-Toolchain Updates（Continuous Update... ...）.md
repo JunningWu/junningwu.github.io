@@ -51,6 +51,7 @@ description: 由于科研文档库于今日403（FxxK，▄█▀█●），现
 - IDE-LLVM： IDE_DSC_LLVM_Win-Rel-20200523.zip
 - IDE-LLVM： IDE_DSC_LLVM_Win-Rel-20200602.zip
 - IDE-LLVM： IDE_DSC_LLVM_Win-Rel-20200612.zip
+- IDE-LLVM： IDE_DSC_LLVM_Win-Rel-20200616.zip
 
 1. **V20200424**：支持《2020_DSC_HX2802x__v0.9》。
 
@@ -62,7 +63,9 @@ description: 由于科研文档库于今日403（FxxK，▄█▀█●），现
 
 5. **V20200602**：使用静态库编译工具链，不依赖与操作系统的某些DLL库。
 
-5. **V20200612**：大更新版本：调整工程文件目录结构，ld文件和库文件以及Driver都统一放置于src目录下；修复编译器RPTI指令立即数错误；调整连续寄存器相关指令从X10到X12，涉及到32位乘法指令和LQP/LDP/SDP等。
+6. **V20200612**：大更新版本：调整工程文件目录结构，ld文件和库文件以及Driver都统一放置于src目录下；修复编译器RPTI指令立即数错误；调整连续寄存器相关指令从X10到X12，涉及到32位乘法指令和LQP/LDP/SDP等。
+
+7. **V20200616**：支持128bit Flash；新增dret指令支持；添加汇编程序编译环境。
 
 ## 如何使用
 
@@ -112,7 +115,8 @@ description: 由于科研文档库于今日403（FxxK，▄█▀█●），现
 
 通过静态编译的方式，版本新于20200602的IDE应该不会存在依赖库找不到的问题。
 
-
+### 11. 
+新增示例程序，C程序hello_haawking和ASM汇编程序test_dret，新建工程可拷贝复制之后进行修改。如程序需在Flash执行，可参考svgen_dp，进行使能等的配置。
 
 
 ## CentOS虚拟机使用说明
