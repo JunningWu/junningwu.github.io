@@ -8,7 +8,8 @@ tags: [Essay,Tech]
 description: Download Links for Haawking DSC28027 & DSC28034 Devices. All Softwares are Developped Based Open Source Projects, And Just for Personal Usage.
 ---
 
-# < center>HX2000-Toolchain< /center>
+
+<h1 style="text-align:center">HX2000-Toolchain </h1>
 
 本页面所提供的开发工具，均基于开源项目开发，遵循相关的开源协议，且所提供的开发工具，**仅限个人开发使用，请勿用于商业用途**，如需获得源码，请与我联系。
 
