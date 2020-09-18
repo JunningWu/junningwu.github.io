@@ -2,13 +2,15 @@
 layout: post
 title: HX2000-Toolchain Download
 date: 2020-09-16
-updated: 2020-09-16
+updated: 2020-09-18
 categories: Tech
 tags: [Essay,Tech]
 description: Download Links for Haawking DSC28027 & DSC28034 Devices. All Softwares are Developped Based Open Source Projects, And Just for Personal Usage.
 ---
 
 # HX2000-Toolchain
+
+
 
 ![HX2000 Toolchain](https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/haawking-toolchain.png)
 
