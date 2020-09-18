@@ -10,13 +10,16 @@ description: Download Links for Haawking DSC28027 & DSC28034 Devices. All Softwa
 
 # HX2000-Toolchain
 
+![HX2000 Toolchain](https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/haawking-toolchain.png)
+
+
 本页面所提供的开发工具，均基于开源项目开发，遵循相关的开源协议，且所提供的开发工具，**仅限个人开发使用，请勿用于商业用途**，如需获得源码，请与我联系。
 
 **提取码：hk19**
 
 ## Haawking IDE Eclipse CDT win32.x86_64
 
-**V0.0.2版本下载链接**：[百度网盘](https://pan.baidu.com/s/1N5HuTCDOuX8msv686cOIog)
+**V0.0.3版本下载链接**：[百度网盘](https://pan.baidu.com/s/1b05iN8j3W28yOyKgzYbyyA)
 
 
 ## 28027 Drivers
