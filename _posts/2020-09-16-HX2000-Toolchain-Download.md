@@ -21,12 +21,23 @@ description: Download Links for Haawking DSC28027 & DSC28034 Devices. All Softwa
 
 ## Haawking IDE Eclipse CDT win32.x86_64
 
+**V0.0.4版本下载链接**：[百度网盘](https://pan.baidu.com/s/19SHadbY200SSs7vjmzocYg)
+
 **V0.0.3版本下载链接**：[百度网盘](https://pan.baidu.com/s/1b05iN8j3W28yOyKgzYbyyA)
 
 
 ## 28027 Drivers
 
+**V47版本下载链接**：[百度网盘](https://pan.baidu.com/s/1Uk8FV1L3bRdErlUSfjx3vw)
+
 **V41版本下载链接**：[百度网盘](https://pan.baidu.com/s/1GyUR4qqmns_3jP6IHx3eKw)
+
+
+## 28034 Drivers
+
+**V47版本下载链接**：[百度网盘](https://pan.baidu.com/s/1ZZ2NZB5SDU7gsFcNhdS0EA)
+
+
 
 ## OpenOCD 0.10.0 win32.x86_64
 
