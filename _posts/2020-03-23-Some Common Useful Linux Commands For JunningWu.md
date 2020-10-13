@@ -46,3 +46,10 @@ patch –R –p1 <to-docu.patch
 sudo du -sh /home/*
 
 ```
+
+
+## Ubuntu 18.04和Ubuntu 20.04安装思科anyconnect
+
+```
+sudo apt-get install network-manager-openconnect-gnome
+```
