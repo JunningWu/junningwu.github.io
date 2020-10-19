@@ -53,3 +53,24 @@ sudo du -sh /home/*
 ```
 sudo apt-get install network-manager-openconnect-gnome
 ```
+
+
+## 如何在ubuntu 18.04上面安装低版本的gcc和g++
+
+```
+g++ --version
+sudo apt update
+sudo apt upgrade 
+sudo apt install gcc-4.8
+sudo apt install g++-4.8
+```
+
+
+## 修改或者添加软连接
+
+```
+sudo rm /usr/bin/gcc
+sudo ln -s /usr/bin/gcc-7 /usr/bin/gcc
+sudo rm /usr/bin/g++
+sudo ln -s /usr/bin/g++-7 /usr/bin/g++
+```

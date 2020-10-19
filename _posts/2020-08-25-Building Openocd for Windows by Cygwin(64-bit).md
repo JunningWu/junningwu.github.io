@@ -2,7 +2,7 @@
 layout: post
 title: Building Openocd for Windows by Cygwin(64-bit)
 date: 2020-08-25
-updated: 2020-08-25
+updated: 2020-10-19
 categories: Tech
 tags: [Essay,Tech]
 description: 尽管OpenOCD官网也提供了不同操作系统的bin文件，但是，可能很多时候需要根据自家的芯片进行定制化移植，需要自己从源码编译OpenOCD。这个帖子记录一下用Cygwin第一次从源码编译的过程。编译的bin文件，已通过FPGA验证。
@@ -34,6 +34,12 @@ $ mkdir -p ~/build; cd ~/build
 $ git clone https://git.code.sf.net/p/openocd/code  openocd
 $ cd ~/build/openocd/
 $ ./bootstrap
+```
+
+如果选择riscv官方支持的版本，可以使用下面的仓库链接
+
+```
+https://github.com/riscv/riscv-openocd.git
 ```
 
 3.配置
