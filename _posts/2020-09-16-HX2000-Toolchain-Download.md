@@ -21,6 +21,8 @@ description: Download Links for Haawking DSC28027 & DSC28034 Devices. All Softwa
 
 ## Haawking IDE Eclipse CDT win32.x86_64
 
+**V0.0.5版本下载链接**：[百度网盘](https://pan.baidu.com/s/1SOeXZTXhNjp3gNM5sMMJCg)
+
 **V0.0.4版本下载链接**：[百度网盘](https://pan.baidu.com/s/19SHadbY200SSs7vjmzocYg)
 
 **V0.0.3版本下载链接**：[百度网盘](https://pan.baidu.com/s/1b05iN8j3W28yOyKgzYbyyA)
