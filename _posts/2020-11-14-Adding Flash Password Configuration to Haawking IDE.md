@@ -5,15 +5,15 @@ date: 2020-11-14
 updated: 2020-11-14
 categories: Tech
 tags: [Essay,Tech]
-description: Haawking的DSC芯片，内置128KB的Flash或者256KB的Flash，加密模块CSM所需的密码，就存放再Flash中，为了给使用者提供密码修改的便利，需要在Haawking IDE中增加密码修改的界面和功能。
+description: Haawking的DSC芯片，内置128KB的Flash或者256KB的Flash，加密模块CSM所需的密码，就存放再Flash中，为了给使用者提供解密的便利，需要在Haawking IDE中增加CSMKEY修改的界面和功能。
 ---
 
 # 最终效果
-Haaking IDE V0.0.7版本中，首次支持密码修改功能，在调试界面，用户可以向Password的输入框中输入密码，每个32位，共4个输入框，128位。
+Haaking IDE V0.0.7版本中，首次支持CSMKEY修改功能，在调试界面，用户可以向Password的输入框中输入密码，每个32位，共4个输入框，128位。
 
 ![Haawking IDE V0.0.7](https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/flash-password-console.png)
 
-使用者只需要向输入框中输入所需的密码，Haawking IDE就会调用底层的Openocd工具，完成密码写入的Flash烧写工程。
+使用者只需要向输入框中输入所需的密码，Haawking IDE就会调用底层的Openocd工具，完成CSMKEY写入的工作。
 
 ## 增加四个Flash Password的配置选项和默认值。
 
@@ -309,6 +309,6 @@ private Text fGdbServerFlashPasswordNum4;
 ```
 
 
-最后，通过上述修改，Haawking IDE已经能够调用OpenOCD发出密码修改的命令，具体效果，还得等调试以及芯片回来以后再确定。
+最后，通过上述修改，Haawking IDE已经能够调用OpenOCD发出CSMKEY修改的命令，具体效果，还得等调试以及芯片回来以后再确定。
 
 （2020-11-14，希格玛公寓，北京）
