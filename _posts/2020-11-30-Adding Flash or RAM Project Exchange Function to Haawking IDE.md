@@ -201,4 +201,4 @@ public static final String OPTION_TARGET_RUN_ENV = OPTION_TARGET + "flashram";
 
 最后，通过上述修改，Haawking IDE已经能够调用OpenOCD发出CSMKEY修改的命令，具体效果，还得等调试以及芯片回来以后再确定。
 
-（2020-11-14，希格玛公寓，北京）
+（2020-11-30，希格玛公寓，北京）
