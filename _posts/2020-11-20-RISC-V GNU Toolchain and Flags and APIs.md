@@ -188,4 +188,50 @@ It is also used (in an edited form) and named libroot.so in BeOS and Haiku.
 ### libm Library
 
 
+## GCC可以正常编译程序，LLVM则无法编译连接
+
+### Clang的三个编译选项
+
+- --gcc-toolchain=<value> Use the gcc toolchain at the given directory
+- --target=<value>        Generate code for the given target
+- --sysroot=<path>        When you have extracted your cross-compiler from a zip file into a directory, you have to use --sysroot=<path>. The path is the root directory where you have unpacked your file, and Clang will look for the directories bin, lib, include in there.
+- -mcmodel=medany         Equivalent to -mcmodel=medium, compatible with RISC-V gcc.
+- -mcmodel=medlow         Equivalent to -mcmodel=small, compatible with RISC-V gcc.
+- -msave-restore          Enable using library calls for save and restore
+- -msmall-data-limit=<value> Put global and static data smaller than the limit into a special section
+- -mtune=<value>          Only supported on X86 and RISC-V. Otherwise accepted for compatibility with GCC.
+- -print-target-triple    Print the normalized target triple
+- -print-targets          Print the registered targets
+- -T <script>             Specify <script> as linker script
+
+
+
+### 目前Clang编译不支持rv32imfc+ilp32f的组合，需是rv32imafc+ilp32f
+
+Depending on the options you choose it might try to find that specific multilib. So if you will go wild, your compiler might not have that multilib present and use the default 64bit one. So if you will get strange errors target emulation 'elf64-littleriscv' does not match 'elf32-littleriscv' then it could mean you selected combination of features that your compiler does not have included the specific multilib.
+
+通过修改```clang/lib/Driver/ToolChains/Gnu.cpp```中findRISCVBareMetalMultilibs，添加rv32imfc+ilp32f和rv32imc+ilp32的组合，重新编译LLVM，则就可以支持。
+
+从文件的注释中可以看出，目前版本的LLVM，并未支持类似的组合，尽管有该组合的产品存在。
+
+```
+clang version 11.0.0 (https://github.com/llvm/llvm-project.git 176249bd6732a8044d457092ed932768724a6f06)
+Target: riscv32-unknown-unknown-elf
+Thread model: posix
+InstalledDir: D:\work\Haawking-IDE-Eclipse-CDT\Haawking-IDE-Eclipse-CDT.win32.x86_64\haawking-tools\compiler\Haawking-RISCV-LLVM\bin
+Found candidate GCC installation: D:/work/Haawking-IDE-Eclipse-CDT/Haawking-IDE-Eclipse-CDT.win32.x86_64/haawking-tools/compiler/riscv-tc-gcc/lib/gcc/riscv64-unknown-elf\10.2.0
+Selected GCC installation: D:/work/Haawking-IDE-Eclipse-CDT/Haawking-IDE-Eclipse-CDT.win32.x86_64/haawking-tools/compiler/riscv-tc-gcc/lib/gcc/riscv64-unknown-elf/10.2.0
+Candidate multilib: rv32i/ilp32;@march=rv32i@mabi=ilp32
+Candidate multilib: rv32im/ilp32;@march=rv32im@mabi=ilp32
+Candidate multilib: rv32iac/ilp32;@march=rv32iac@mabi=ilp32
+Candidate multilib: rv32imac/ilp32;@march=rv32imac@mabi=ilp32
+Candidate multilib: rv32imc/ilp32;@march=rv32imc@mabi=ilp32
+Candidate multilib: rv32imafc/ilp32f;@march=rv32imafc@mabi=ilp32f
+Candidate multilib: rv32imfc/ilp32f;@march=rv32imfc@mabi=ilp32f
+Candidate multilib: rv64imac/lp64;@march=rv64imac@mabi=lp64
+Candidate multilib: rv64imafdc/lp64d;@march=rv64imafdc@mabi=lp64d
+Selected multilib: rv32imc/ilp32;@march=rv32imc@mabi=ilp32
+```
+
+
 （2020-10-19，希格玛公寓，北京）

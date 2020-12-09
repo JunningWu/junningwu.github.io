@@ -19,6 +19,7 @@ llvm/lib/Target/RISCV/RISCVInstrFormats.td
 llvm/lib/Target/RISCV/RISCVRegisterInfo.td
 llvm/lib/Target/RISCV/RISCVInstrInfo.td
 llvm/lib/Target/RISCV/RISCVISelLowing.cpp
+clang/lib/Driver/ToolChains/Gnu.cpp
 ```
 
 
@@ -143,6 +144,18 @@ asm volatile(
 			: [z]"=r"(c)
 			: [x]"r" (a),[y] "r" (b)
 	);
+```
+
+### clang/lib/Driver/ToolChains/Gnu.cpp
+
+通过修改findRISCVBareMetalMultilibs，添加rv32imfc+ilp32f和rv32imc+ilp32的组合，重新编译LLVM，则就可以支持。
+
+```
+// currently only support the set of multilibs like riscv-gnu-toolchain does.
+  // TODO: support MULTILIB_REUSE
+  constexpr RiscvMultilib RISCVMultilibSet[] = {
+      {"rv32i", "ilp32"},     {"rv32im", "ilp32"},     {"rv32iac", "ilp32"},
+      {"rv32imac", "ilp32"}, {"rv32imc", "ilp32"},  {"rv32imafc", "ilp32f"}, {"rv32imfc", "ilp32f"}, {"rv64imac", "lp64"},
 ```
 
 最后，目前版本的编译器，能够完成自定义指令的编译和反汇编，并未添加测试，对于隐藏寄存器的支持，也只是能够在限定寄存器的情况下能用。这是因为寄存器分配的实现难度较高。
