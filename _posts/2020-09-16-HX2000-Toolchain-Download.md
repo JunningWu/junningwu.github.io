@@ -2,7 +2,7 @@
 layout: post
 title: HX2000-Toolchain Download
 date: 2020-09-16
-updated: 2021-01-11
+updated: 2021-02-01
 categories: Tech
 tags: [Essay,Tech]
 description: Download Links for Haawking DSC28027 & DSC28034 Devices. All Softwares are Developped Based Open Source Projects, And Just for Personal Usage.
@@ -22,6 +22,8 @@ description: Download Links for Haawking DSC28027 & DSC28034 Devices. All Softwa
 ## Haawking IDE Eclipse CDT win32.x86_64
 
 ![HX2000 Toolchain](https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/haawking-ide-v0.0.7.bmp)
+
+**V0.1.0版本下载链接**：[百度网盘](https://pan.baidu.com/s/1lCKFH7hSPX2rspOD5RE8qA) [科技云盘](https://pan.cstcloud.cn/s/EzQcjGnSTMM)
 
 **V0.0.8版本下载链接**：[百度网盘](https://pan.baidu.com/s/15va9cgQxwXAHgQ4CDakP0Q)
 
