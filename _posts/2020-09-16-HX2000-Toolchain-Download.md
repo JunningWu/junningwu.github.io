@@ -21,9 +21,9 @@ description: Download Links for Haawking DSC28027 & DSC28034 Devices. All Softwa
 
 ## Haawking IDE Eclipse CDT win32.x86_64
 
-![HX2000 Toolchain](https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/haawking-ide-v0.0.7.bmp)
+![HX2000 Toolchain](https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/haawking-ide-v0.1.0.bmp)
 
-**V0.1.0版本下载链接**：[百度网盘](https://pan.baidu.com/s/1lCKFH7hSPX2rspOD5RE8qA) [科技云盘](https://pan.cstcloud.cn/s/EzQcjGnSTMM)
+**V0.1.0版本下载链接**：[百度网盘](https://pan.baidu.com/s/1HBjkuvxX20AZWM417DshEA) [**科技云盘**(推荐，不限速)](https://pan.cstcloud.cn/s/PjO8zlxySGQ)
 
 **V0.0.8版本下载链接**：[百度网盘](https://pan.baidu.com/s/15va9cgQxwXAHgQ4CDakP0Q)
 
@@ -37,3 +37,14 @@ description: Download Links for Haawking DSC28027 & DSC28034 Devices. All Softwa
 
 **V0.0.3版本下载链接**：[百度网盘](https://pan.baidu.com/s/1b05iN8j3W28yOyKgzYbyyA)
 
+
+
+## Haawking DSC28034配套
+
+### 湖人版例程
+
+**下载链接**：[Haawking IDE V0.1.0](https://pan.cstcloud.cn/s/R4uXEmcAR2k)
+
+### 湖人板资料
+
+**下载链接**：[DSP28034湖人版-焊主芯片.pdf](https://pan.cstcloud.cn/s/nNnlKmeTo)  [DSP28034湖人版-插座板.pdf](https://pan.cstcloud.cn/s/jViEfNMrTRc)
