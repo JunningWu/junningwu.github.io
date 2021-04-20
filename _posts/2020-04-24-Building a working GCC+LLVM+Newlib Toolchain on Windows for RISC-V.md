@@ -108,6 +108,27 @@ riscv32-unknown-elf-gcc.exe: PE32+ executable (console) x86-64, for MS Windows
 
 如果安装完成vs2017以后是中文版本，可以修改成英文版本，这样能够更好的对应上llvm官方的说明。打开cmake gui界面，设置llvm源代码的路径和build的路径。llvm源代码路径为llvm-project/llvm，我之前build的路径是在根目录下，因此是llvm-project/build。
 
+**更新于20210420**安装完成vs2017或者vs2019之后，还不能直接与cmake-gui结合来编译clang，还需要设置环境变量，包括path，lib，include，如下：
+
+PATH:
+```
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\bin\Hostx86\x64
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\bin\Hostx86\x86
+```
+INCLUDE:
+```
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt
+```
+LIB:
+```
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\lib\x64
+C:\Program Files (x86)\Windows Kits\10\Lib\10.0.18362.0\ucrt\x86
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\lib\x86
+C:\Program Files (x86)\Windows Kits\10\Lib\10.0.18362.0\ucrt\x64
+```
+
+
 之后，就是设置一下一些编译的标志，如
 ```
 CMAKE_INSTALL_PREFIX (安装路径，我这里设置的是work/HX2000-Toolchain/riscv-tc-llvm)
