@@ -22,7 +22,7 @@ description: Download Links for Haawking DSC28027 & DSC28034 Devices. All Softwa
 
 ![HX2000 Toolchain](https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/haawking-ide-v0.5.0.bmp)
 
-**V0.5.0版本下载链接**：[百度网盘](https://pan.baidu.com/s/1ruvV07VDosQmChz9vgw-kg) 
+**V0.5.0版本下载链接**：[百度网盘](https://pan.baidu.com/s/1ruvV07VDosQmChz9vgw-kg) [**科技云盘**(推荐，不限速，不限速，不限速)](https://pan.cstcloud.cn/s/kcVXzP0WQL0)
 
 **V0.3.0版本下载链接**：[百度网盘](https://pan.baidu.com/s/1kkKHULZ6dU5I9vvUYg5ehA) [**科技云盘**(推荐，不限速，不限速，不限速)](https://pan.cstcloud.cn/s/Reg78stbQ8M)
 
