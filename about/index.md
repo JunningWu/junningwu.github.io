@@ -35,6 +35,7 @@ junning.wu@mail.haawking.com
 
 ## 学术论文：
 
+Li, R. ,  **J  Wu**, and  E. Dai . "An Improved M/T Speed Algorithm Based on RISC-V DSP." 2020 International Conference on Intelligent Computing, Automation and Systems (ICICAS) 2020.
 
 Renwei Li, **Junning Wu**, Meng Liu, Zuding Chen, Shengang Zhou, Shanggong Feng, "HcveAcc: A High-Performance and Energy-Efficient Accelerator for Tracking Task in VSLAM System", Design Automation and Test in Europe Conference(DATE),2020.
 
