@@ -11,8 +11,6 @@ layout: page
 北京中科昊芯科技有限公司 联合创始人&副总经理
 -------------------------------------------
 
-原思朗科技前端设计部副总经理
--------------------------------------------
 
 
 RISC-V国际基金会个人会员。曾作为核心骨干先后参与**“核高基”**、**国家科技支撑计划**、**中科院先导A类/C类专项**等多项国家级课题
@@ -75,6 +73,12 @@ Xin Huanga, QingBin Liu, **JunNing Wu**, XueLiang Du and DongLin Wang,"TxCP: A C
 
 
 ## 参与或主持项目：
+
+## **2019/10 - 至今 Haawking HX2000系列芯片软硬件开发环境 **
+  - 主管昊芯软件研发中心
+  - GCC/LLVM编译器支持自定义指令集
+  - 领域算法分析和优化
+  - 商务拓展
 
 ## **2019/10 - 至今 深度学习加速器/智能机器人处理器 预研项目**
   - 电机控制算法分析，通过自定义指令集优化算法性能
@@ -172,4 +176,65 @@ Xin Huanga, QingBin Liu, **JunNing Wu**, XueLiang Du and DongLin Wang,"TxCP: A C
     display: inline-block;
     color: #999;
     padding: 12px;">2020-01-haawking-party</div>
+</center>
+
+
+<center>
+    <img style="border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/2021-01-13-first-chip.jpg">
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 12px;">2021-01-13-first-chip</div>
+</center>
+
+
+<center>
+    <img style="border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/2021-05-22-yuanmingyuan.jpg">
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 12px;">2021-05-22-yuanmingyuan</div>
+</center>
+
+
+<center>
+    <img style="border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/2022-01-20-DADEC2022.jpg">
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 12px;">2022-01-20-DADEC2022</div>
+</center>
+
+
+<center>
+    <img style="border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/2022-01-26-haawking3.jpg">
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 12px;">2022-01-26-haawking3</div>
+</center>
+
+
+
+<center>
+    <img style="border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="https://github.com/JunningWu/junningwu.github.io/raw/master/_posts/pics/2023-03-24-srd2023.jpg">
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 12px;">2023-03-24-srd2023</div>
 </center>
